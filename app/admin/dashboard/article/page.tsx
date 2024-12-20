@@ -1,17 +1,24 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { FC, useState } from 'react';
+import { articles } from './data/articles';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
-function Page() {
-  const [search, setSearch] = useState("");
+const ArticlePage: FC = () => {
+  const router = useRouter();
 
-  const articles = [
-    { id: 1, title: "Article 1", author: "Author 1", date: "2023-01-01" },
-    { id: 2, title: "Article 2", author: "Author 2", date: "2023-01-02" },
-    // Add more articles as needed
-  ];
+  const [search, setSearch] = useState('');
 
-  const filteredArticles = articles.filter(article =>
+  const filteredArticles = articles.filter((article) =>
     article.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -19,7 +26,12 @@ function Page() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Articles</h1>
       <div className="flex justify-between items-center">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded">Add Article</button>
+        <Button
+          onClick={() => router.push(`article/create`)}
+          className="px-4 py-2"
+        >
+          Add Article
+        </Button>
         <input
           type="text"
           placeholder="Search articles..."
@@ -28,28 +40,34 @@ function Page() {
           className="px-4 py-2 border rounded"
         />
       </div>
-      <table className="min-w-full bg-white">
-        <thead>
-          <tr>
-            <th className="py-2">ID</th>
-            <th className="py-2">Title</th>
-            <th className="py-2">Author</th>
-            <th className="py-2">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredArticles.map(article => (
-            <tr key={article.id}>
-              <td className="py-2">{article.id}</td>
-              <td className="py-2">{article.title}</td>
-              <td className="py-2">{article.author}</td>
-              <td className="py-2">{article.date}</td>
-            </tr>
+      <Table className="min-w-full bg-white">
+        <TableHeader>
+          <TableRow>
+            <TableHead className="py-2 text-center font-bold">ID</TableHead>
+            <TableHead className="py-2 text-center font-bold">Title</TableHead>
+            <TableHead className="py-2 text-center font-bold">Author</TableHead>
+            <TableHead className="py-2 text-center font-bold">Date</TableHead>
+            <TableHead className="py-2 text-center font-bold">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredArticles.map((article) => (
+            <TableRow key={article.id}>
+              <TableCell className="py-2 text-center">{article.id}</TableCell>
+              <TableCell className="py-2 text-center">
+                {article.title}
+              </TableCell>
+              <TableCell className="py-2 text-center">
+                {article.author}
+              </TableCell>
+              <TableCell className="py-2 text-center">{article.date}</TableCell>
+              <TableCell className="py-2 text-center">{article.date}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
-}
+};
 
-export default Page;
+export default ArticlePage;
