@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="h-8 w-8 cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={`https://ui-avatars.com/api/?name=John+Doe&background=random`} />
                   <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
