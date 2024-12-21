@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import { articles } from './data/articles';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import DeleteArticle from './components/deleteArticleButton';
 import {
   Table,
   TableBody,
@@ -22,8 +23,13 @@ const ArticlePage: FC = () => {
     article.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleSeeDetailArticle = (articleId: string) => {
+    console.log(`Seeing detail article with id ${articleId}`);
+    router.push(`article/${articleId}`)
+}
+
   return (
-    <div className="space-y-6">
+    <div className="px-6 py-4 max-w-[90rem] mx-auto flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Articles</h1>
       <div className="flex justify-between items-center">
         <Button
@@ -61,7 +67,18 @@ const ArticlePage: FC = () => {
                 {article.author}
               </TableCell>
               <TableCell className="py-2 text-center">{article.date}</TableCell>
-              <TableCell className="py-2 text-center">{article.date}</TableCell>
+              <TableCell className="py-2 text-center">
+                <button
+                  className="mr-2 px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={() => handleSeeDetailArticle(article.id)}
+                >
+                  Edit
+                </button>
+                <DeleteArticle
+                  articleId={article.id}
+                  onDelete={(id) => console.log(`Deleting article with id ${id}`)}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

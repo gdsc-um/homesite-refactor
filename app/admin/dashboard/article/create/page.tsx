@@ -9,6 +9,7 @@ const CreateArticle: FC = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [date, setDate] = useState('');
+  const [content, setContent] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const CreateArticle: FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="px-6 py-4 max-w-[80rem] mx-auto flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Create New Article</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -45,18 +46,18 @@ const CreateArticle: FC = () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Date
+            Content
           </label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
         <Button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="px-4 py-2"
+          onClick={() => setDate(new Date().toISOString().split('T')[0])}
         >
           Save Article
         </Button>
