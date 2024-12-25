@@ -1,40 +1,1012 @@
 const QUIZZES = [
     {
-        id: "1",
-        question: "Apa yang dimaksud dengan variabel dalam programming?",
-        author: "System",
-        choices: [
-            "Tempat untuk menyimpan data sementara",
-            "Sebuah perintah dalam program",
-            "Jenis data yang dapat diubah",
-            "Algoritma dalam program"
-        ],
-        correctAnswerIndex: 0
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
     },
     {
-        id: "2",
-        question: "Manakah operator yang digunakan untuk perbandingan sama dengan?",
-        author: "System",
-        choices: [
-            "==",
-            "=",
-            "!=",
-            ">="
-        ],
-        correctAnswerIndex: 0
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
     },
     {
-        id: "10",
-        question: "Apa fungsi dari keyword 'if' dalam bahasa pemrograman?",
-        author: "System",
-        choices: [
-            "Untuk perulangan",
-            "Untuk membuat fungsi",
-            "Untuk pengambilan keputusan",
-            "Untuk mendeklarasikan variabel"
-        ],
-        correctAnswerIndex: 2
-    }
-];
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-eed9-4c5a-82da-424e4ee789ce",
+        "question": "(Pertanyaan Pertama) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b9e7a3b2-eed9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Kedua) Ibukota Indonesia adalah?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Jakarta (benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            },
+            {
+                "answer": "Surabaya (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Medan (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "uuid": "b987a3b2-ead9-4c5a-82da-424e4a2789ce",
+        "question": "(Pertanyaan Ketiga) Universitas Negeri Malang terletak di kota?",
+        "image": "/images/question_image.jpg",
+        "author": "System",
+        "options": [
+            {
+                "answer": "Kediri (salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Padang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Palembang (Salah)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": false
+            },
+            {
+                "answer": "Malang (Benar)",
+                "image": "/images/answer_image.jpg",
+                "isCorrect": true
+            }
+        ]
+    },
+]
 
 export { QUIZZES }
