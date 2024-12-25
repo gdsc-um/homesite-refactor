@@ -2,7 +2,8 @@ export enum QuizType {
     WEB = "Web Developer",
     ML = "Machine Learning",
     MOBILE = "Mobile",
-    UIUX = "UI/UX"
+    UIUX = "UI/UX",
+    OTHER = "Other"
 }
 
 export interface Quiz {

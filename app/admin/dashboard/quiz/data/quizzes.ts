@@ -3,7 +3,7 @@ import { Quiz, QuizType } from "../lib/definition";
 const QUIZZES: Quiz[] = [
     {
         id: "1",
-        title: "Testing 1",
+        title: "Testing 1 title",
         description: "Testing 1 description",
         author: "System",
         type: QuizType.ML

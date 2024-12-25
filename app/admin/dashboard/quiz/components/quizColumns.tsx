@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import ActionButton from "./actionButton"
-import { Question, Quiz } from "../lib/definition"
+import { Quiz } from "../lib/definition"
 
 
 export const columns: ColumnDef<Quiz>[] = [
@@ -14,7 +14,7 @@ export const columns: ColumnDef<Quiz>[] = [
         }
     },
     {
-        accessorKey: "question",
+        accessorKey: "title",
         header: "Title",
         cell: ({ row }) => {
             const quiz = row.original;
@@ -35,14 +35,18 @@ export const columns: ColumnDef<Quiz>[] = [
     },
     {
         id: "total",
-        header: "Total Question",
+        header: () => {
+            return <p className="text-center">Total Question</p>
+        },
         cell: ({ row }) => {
-            return <div className="py-4">4</div>
+            return <div className="py-4 text-center">4</div>
         }
     },
     {
         id: "action",
-        header: "Action",
+        header: () => {
+            return <p className="text-center">Action</p>
+        },
         cell: ({ row }) => {
             const quiz = row.original;
             return <ActionButton type="QUIZ" data={quiz} />

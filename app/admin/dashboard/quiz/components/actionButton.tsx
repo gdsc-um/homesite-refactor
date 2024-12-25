@@ -1,8 +1,8 @@
 "use client";
 
-import { CircleAlert, Pencil, Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React, { FC } from 'react'
+import { CircleAlert, Eye, Pencil, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React, { FC } from 'react';
 
 import {
     Dialog,
@@ -12,7 +12,13 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 
 import { Button } from '@/components/ui/button';
@@ -21,16 +27,21 @@ import { Question, Quiz } from '../lib/definition';
 
 interface ActionButtonProps {
     data: Question | Quiz,
-    type: "QUIZ" | "QUESTION"
+    type: "QUIZ" | "QUESTION",
 }
 
 const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
     const router = useRouter();
 
-    const handleEditClick = () => {
+    const handleSeeDetailClick = () => {
         let url = `quiz/${data.id}`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}`;
+        router.push(url);
+    }
 
-        if (type === "QUESTION") url = `question/${data.id}`;
+    const handleEditClick = () => {
+        let url = `quiz/${data.id}/edit`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}/edit`;
         router.push(url);
     }
 
@@ -39,16 +50,43 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
     }
 
     return (
-        <div className="flex justify-center gap-6 py-4">
-            <button onClick={handleEditClick} className="">
-                <Pencil size={15} />
-            </button>
+        <TooltipProvider delayDuration={100}>
+            <div className="flex justify-center gap-6 py-4">
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button onClick={handleSeeDetailClick}>
+                            <Eye size={15} />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>See Detail</p>
+                    </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button onClick={handleEditClick} className="">
+                            <Pencil size={15} />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Edit</p>
+                    </TooltipContent>
+                </Tooltip>
+
             <Dialog>
-                <DialogTrigger asChild>
-                    <button onClick={handleDeleteClick}>
-                        <Trash color='#ef4444' size={15} />
-                    </button>
-                </DialogTrigger>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                                <button onClick={handleDeleteClick}>
+                                    <Trash color='#ef4444' size={15} />
+                                </button>
+                            </DialogTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Delete</p>
+                        </TooltipContent>
+                    </Tooltip>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle className='flex items-center gap-2 mb-2'>
@@ -56,7 +94,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                             Are you absolutely sure?
                         </DialogTitle>
                         <DialogDescription>
-                            This action cannot be undone. This will permanently delete quiz
+                                This action cannot be undone. This will permanently delete {type === "QUESTION" ? "question " : "quiz "}
                             from our database.
                         </DialogDescription>
                     </DialogHeader>
@@ -67,11 +105,10 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                         <Button variant={'destructive'}>Yes, delete it.</Button>
                     </DialogFooter>
                 </DialogContent>
-            </Dialog>
+                </Dialog>
+            </div>
+        </TooltipProvider>
 
-
-
-        </div>
     )
 }
 
