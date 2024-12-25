@@ -1,25 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Eye } from "lucide-react"
 import ActionButton from "./actionButton"
+import { Question, Quiz } from "../lib/definition"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
-export type QuizOption = {
-    answer: string
-    image: string
-    isCorrect: boolean
-}
-
-export type Quiz = {
-    uuid: string
-    question: string
-    image: string
-    options: QuizOption[]
-    author: string
-}
 
 export const columns: ColumnDef<Quiz>[] = [
     {
@@ -31,11 +15,11 @@ export const columns: ColumnDef<Quiz>[] = [
     },
     {
         accessorKey: "question",
-        header: "Question",
+        header: "Title",
         cell: ({ row }) => {
             const quiz = row.original;
             return <div className="py-4">
-                {quiz.question}
+                {quiz.title}
             </div>
         }
     },
@@ -50,11 +34,18 @@ export const columns: ColumnDef<Quiz>[] = [
         }
     },
     {
+        id: "total",
+        header: "Total Question",
+        cell: ({ row }) => {
+            return <div className="py-4">4</div>
+        }
+    },
+    {
         id: "action",
         header: "Action",
         cell: ({ row }) => {
             const quiz = row.original;
-            return <ActionButton quiz={quiz} />
+            return <ActionButton type="QUIZ" data={quiz} />
         }
     },
 ]

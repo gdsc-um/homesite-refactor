@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { DataTable } from "@/components/ui/data-table";
-import { columns } from "./components/columns";
-import { QUIZZES } from "./data/quizzes";
 import { Input } from "@/components/ui/input";
+import { columns } from "./components/quizColumns";
+import { QUIZZES } from "./data/quizzes";
 
 
 
@@ -31,4 +31,4 @@ const QuizPage: FC = () => {
     )
 }
 
-export default QuizPage
+export default QuizPage;

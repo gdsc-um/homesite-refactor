@@ -15,19 +15,23 @@ import {
 } from "@/components/ui/dialog"
 
 
-import { Quiz } from './columns';
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
+import { Question, Quiz } from '../lib/definition';
 
 interface ActionButtonProps {
-    quiz: Quiz
+    data: Question | Quiz,
+    type: "QUIZ" | "QUESTION"
 }
 
-const ActionButton: FC<ActionButtonProps> = ({ quiz }) => {
+const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
     const router = useRouter();
 
     const handleEditClick = () => {
-        router.push(`quiz/${quiz.uuid}`);
+        let url = `quiz/${data.id}`;
+
+        if (type === "QUESTION") url = `question/${data.id}`;
+        router.push(url);
     }
 
     const handleDeleteClick = () => {
@@ -35,7 +39,7 @@ const ActionButton: FC<ActionButtonProps> = ({ quiz }) => {
     }
 
     return (
-        <div className="flex gap-6 py-4">
+        <div className="flex justify-center gap-6 py-4">
             <button onClick={handleEditClick} className="">
                 <Pencil size={15} />
             </button>
