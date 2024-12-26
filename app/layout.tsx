@@ -30,7 +30,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // Mengecek apakah path mengandung "/admin"
-  const isAdminPage = pathname.startsWith('/admin');
+  const isAdminPage = pathname.startsWith('/admin/');
 
   return (
     <html lang="en">
