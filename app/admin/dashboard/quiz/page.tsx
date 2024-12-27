@@ -1,21 +1,13 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import { useRouter } from "next/navigation";
-import { Eye, Trash } from "lucide-react"
 import { FC } from "react";
-import { deleteQuiz } from "./lib/action";
+import { DataTable } from "@/components/ui/data-table";
+import { Input } from "@/components/ui/input";
+import { columns } from "./components/quizColumns";
 import { QUIZZES } from "./data/quizzes";
-import DeleteQuizBtn from "./components/deleteQuizBtn";
+
 
 
 
@@ -76,4 +68,4 @@ const QuizPage: FC = () => {
     )
 }
 
-export default QuizPage
+export default QuizPage;
