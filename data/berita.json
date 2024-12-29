@@ -1,0 +1,32 @@
+{
+    "berita": [
+        {
+            "id": 1,
+            "judul": "Berita 1",
+            "isi": "Isi berita 1",
+            "slug": "berita-1",
+            "thumbnail": "https://via.placeholder.com/150",
+            "tanggal": "2020-01-01",
+            "penulis": "Admin"
+        },
+        {
+            "id": 2,
+            "judul": "Berita 2",
+            "isi": "Isi berita 2",
+            "slug": "berita-2",
+            "thumbnail": "https://via.placeholder.com/150",
+            "tanggal": "2020-01-01",
+            "penulis": "Admin"
+
+        },
+        {
+            "id": 3,
+            "judul": "Berita 3",
+            "isi": "Isi berita 3",
+            "slug": "berita-3",
+            "thumbnail": "https://via.placeholder.com/150",
+            "tanggal": "2020-01-01",
+            "penulis": "Admin"
+        }
+    ]
+}

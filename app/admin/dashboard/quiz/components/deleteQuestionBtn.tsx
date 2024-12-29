@@ -1,6 +1,5 @@
 import { Trash } from 'lucide-react'
 import React, { FC } from 'react'
-import { deleteQuiz } from '../lib/action'
 
 interface DeleteQuizBtnProps {
     id: string
@@ -8,7 +7,7 @@ interface DeleteQuizBtnProps {
 
 const DeleteQuizBtn: FC<DeleteQuizBtnProps> = ({ id }) => {
     return (
-        <form action={deleteQuiz.bind(null, id)}>
+        <form>
             <button type='submit' className="">
                 <Trash size={15} />
             </button>
