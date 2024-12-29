@@ -209,7 +209,7 @@ export default async function Home() {
           ))}
         </div>
         <Link
-          className="mt-8 px-6 py-3 bg-coreBlue-primary rounded-full text-white text-xl hover:bg-coreBlue-500 hover:outline-offset-2 hover:outline hover:outline-coreBlue-500"
+          className="mt-8 px-6 py-3 rounded-full text-blue-500 text-xl hover:bg-coreBlue hover:outline-offset-2 hover:outline hover:outline-coreBlue-500"
           href={"/blog"}
         >
           Lihat artikel lainnya

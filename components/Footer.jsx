@@ -1,4 +1,4 @@
-import LogoGDSC from "@/assets/logo_gdsc.svg";
+import LogoCommunity from "@/assets/gdsc-logo-light.png";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -35,12 +35,12 @@ const Footer = () => {
             href={"/"}
             className="flex title-font font-medium items-center md:justify-start justify-center text-white"
           >
-            <div className="relative overflow-visible">
+            <div className="relative overflow-visible bg-oppacity-10 bg-primary">
               <Image
                 alt="logo"
-                src={LogoGDSC}
-                width={330}
-                height={34}
+                src={LogoCommunity}
+                // width={330}
+                // height={34}
                 // fill={true}
                 className="object-cover object-center"
               />
@@ -81,7 +81,7 @@ const Footer = () => {
       <div className="bg-[#010C1B] text-white">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-white text-sm text-center sm:text-left">
-            © 2023 GDSC UM
+            © 2024 GDSC UM
           </p>
         </div>
       </div>
