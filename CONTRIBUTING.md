@@ -15,14 +15,13 @@ Mohon untuk melihat [package.json](package.json) untuk melihat daftar lengkap te
 
 **Pre-requisites tools**
 
-- Node.js minimal versi 18 (LTS saat ini)
+- Node.js minimal versi 20 (LTS saat ini)
 - PNPM minimal versi 9.15 **(Recommended)**
-- NPM minimal versi 7 (LTS saat ini)
 
 **Cara menjalankan**
 
 1. Clone repositori ini dengan perintah `git clone https://github.com/gdsc-um/homesite-refactor.git`
-2. Install dependencies dengan perintah `pnpm install` atau `npm install`
+2. Install dependencies dengan perintah `pnpm install`
 3. Rename file `.env.example` menjadi `.env`
 4. Ambil informasi `.env` dari admin atau tim technical website GDSC Universitas Negeri Malang
 5. Jalankan aplikasi dengan perintah `pnpm dev` atau `npm run dev`
