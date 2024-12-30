@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "tsc --noEmit --watch"
+    "type-check:watch": "tsc --noEmit --watch",
+    "image:to:webp": "node ./scripts/image-to-webp.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
