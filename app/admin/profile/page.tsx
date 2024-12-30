@@ -1,6 +1,6 @@
 import { AccountForm } from "./form"
 
-export default function SettingsAccountPage() {
+export default function Page() {
   return (
     <div className="space-y-6">
       <AccountForm />
