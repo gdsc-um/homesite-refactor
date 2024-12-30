@@ -8,10 +8,6 @@ import { Input } from "@/components/ui/input";
 import { columns } from "./components/quizColumns";
 import { QUIZZES } from "./data/quizzes";
 
-
-
-
-
 const QuizPage: FC = () => {
     const router = useRouter();
 
