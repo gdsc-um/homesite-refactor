@@ -11,6 +11,7 @@ import { QUIZZES } from "./data/quizzes";
 
 
 
+
 const QuizPage: FC = () => {
     const router = useRouter();
 
