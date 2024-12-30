@@ -30,12 +30,12 @@ const Navbar = () => {
     <header className="text-black body-font bg-white border-b-2">
       <div className="container mx-auto flex flex-wrap md:justify-between px-0 py-5 flex-col md:flex-row items-center gap-3">
         <Link href="/" className="flex title-font font-medium items-center">
-          <div className="w-[250px] h-[25px] lg:w-[350px] lg:h-[35px] relative overflow-visible">
+          <div className="w-[250px] h-[25px] lg:w-[350px] lg:h-[45px] relative overflow-visible">
             <Image
               alt="logo"
               src={LogoGDSC}
               fill={true}
-              className="object-fill text-black"
+              className="object-scale-down text-black"
             />
           </div>
         </Link>
