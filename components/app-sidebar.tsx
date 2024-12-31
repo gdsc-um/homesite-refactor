@@ -1,4 +1,4 @@
-import { Command, Home, LetterText, Settings, TextQuoteIcon } from "lucide-react"
+import { Command, Home, LetterText, Settings, TextQuoteIcon, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -10,7 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 // Menu items with categories
 const menuItems = [
@@ -19,12 +19,12 @@ const menuItems = [
     items: [
       {
         title: "Home",
-        url: "#",
+        url: "dashboard",
         icon: Home,
       },
       {
         title: "Article",
-        url: "#",
+        url: "artikel",
         icon: LetterText,
       },
       {
@@ -32,7 +32,13 @@ const menuItems = [
         url: "#",
         icon: TextQuoteIcon,
       },
-    ]
+      {
+        title: "Manage User",
+        url: "manage-user",
+        icon: User,
+        requiresAdmin: true, // Tambahkan properti untuk mempermudah filter
+      },
+    ],
   },
   {
     category: "User",
@@ -42,13 +48,17 @@ const menuItems = [
         url: "#",
         icon: Settings,
       },
-    ]
-  }
-]
+    ],
+  },
+];
+
+// super admin condition
+const isSuperAdmin = true;
 
 export function AppSidebar() {
   return (
     <Sidebar variant="inset">
+      {/* Sidebar Header */}
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -66,27 +76,31 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
+      {/* Sidebar Content */}
       <SidebarContent>
         {menuItems.map((category) => (
           <SidebarGroup key={category.category}>
             <SidebarGroupLabel>{category.category}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {category.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {category.items
+                  .filter((item) => !item.requiresAdmin || isSuperAdmin) // Filter berdasarkan kondisi
+                  .map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <a href={item.url}>
+                          <item.icon className="mr-2" />
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }

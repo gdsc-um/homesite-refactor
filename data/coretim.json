@@ -1,0 +1,236 @@
+{
+    "coreteam": [
+      {
+        "nim": "210121600401",
+        "name": "Refiana Andiyah",
+        "role": "Lead",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/refiana_andiyah_UQKxPph.jpg",
+        "profile_url": "https://gdg.community.dev/u/refiana/"
+      },
+      {
+        "nim": "200535626826",
+        "name": "Alvian Rahmadani Saputra",
+        "role": "Community Advisor",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/alvian_rahmadani_ikZ8sYg.jpg",
+        "profile_url": "https://gdg.community.dev/u/myfmmz/"
+      },
+      {
+        "nim": "220535608555",
+        "name": "Dimas Ardiminda Edia Putra",
+        "role": "Co-Lead",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/dimas_ardiminda_edia_putra_BOEQ0iu.jpg",
+        "profile_url": "https://gdg.community.dev/u/a_dimas_ardiminda/"
+      },
+      {
+        "nim": "210121600429",
+        "name": "Ummul Karima",
+        "role": "AFM",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ummul_karima.png",
+        "profile_url": "https://gdg.community.dev/u/mvmf5h/"
+      },
+      {
+        "nim": "220535608548",
+        "name": "Alvalen Shafelbilyunazra",
+        "role": "Web Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/alvalen_shafel_5fUEnek.jpg",
+        "profile_url": "https://gdg.community.dev/u/mc56js/"
+      },
+      {
+        "nim": "",
+        "name": "Ahmad Reza Adrian",
+        "role": "Web Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ahmad_reza_adrian_P6OEzFG.png",
+        "profile_url": "https://gdg.community.dev/u/m2c5nb/"
+      },
+      {
+        "nim": "220535608951",
+        "name": "Azarya Aditya Krisna Moeljono",
+        "role": "Web Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/azarya_aditya_moeljono_aWZVN6K.png",
+        "profile_url": "https://gdg.community.dev/u/azarya_aditya/"
+      },
+      {
+        "nim": "220535603620",
+        "name": "Avan Fabian Daniswara",
+        "role": "Machine Learning/Artificial Intelligence",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/avan_fabian_daniswara_UiewmAY.jpg",
+        "profile_url": "https://gdg.community.dev/u/m6jwaz/"
+      },
+      {
+        "nim": "220535608750",
+        "name": "Victory Kuriakos Abednego",
+        "role": "Machine Learning/Artificial Intelligence",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/victory_kuriakos.png",
+        "profile_url": "https://gdg.community.dev/u/m95rde/"
+        
+      },
+      {
+        "nim": "220312601080",
+        "name": "Muhammad Fa'iz Alfarisi",
+        "role": "Machine Learning/Artificial Intelligence",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/muhammad_faiz_alfarisi_K4MP3aU.jpg",
+        "profile_url": "https://gdg.community.dev/u/mg7ugm/"
+      },
+      {
+        "nim": "220535601253",
+        "name": "Zaidatul Na'ima",
+        "role": "Machine Learning/Artificial Intelligence",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/zaidatul_naima.jpg",
+        "profile_url": "https://gdg.community.dev/u/mwzx72/"
+      },
+      {
+        "nim": "230312604907",
+        "name": "Daffa Damadhika Arkananta",
+        "role": "Mobile Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/daffa_damadhika_arkananta.png",
+        "profile_url": "https://gdg.community.dev/u/daffa/"
+      },
+      {
+        "nim": "240935702093",
+        "name": "Gavyn Rafael Davasco",
+        "role": "Mobile Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/gavyn_rafael_UmCixO2.png",
+        "profile_url": "https://gdg.community.dev/u/mvj2wg/"
+      },
+      {
+        "nim": "240535606974",
+        "name": "Khalilullah Nuraini",
+        "role": "Mobile Developer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/khalilullah_nuraini_eImzHL4.png",
+        "profile_url": "https://gdg.community.dev/u/myxv2z/"
+      },
+      {
+        "nim": "230535603720",
+        "name": "Muhammad Ilham Ramdhani",
+        "role": "UI/UX Designer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/muhammad_ilham_ramdhani_lp2Sbea.png",
+        "profile_url": "https://gdg.community.dev/u/muhammad_ilham/"
+      },
+      {
+        "nim": "220535605922",
+        "name": "Tatya Hanum Pramudita",
+        "role": "UI/UX Designer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/tatya_hanum_pramudita_baDcPCj.png",
+        "profile_url": "https://gdg.community.dev/u/mb4pks/"
+      },
+      {
+        "nim": "220253610811",
+        "name": "Tabi'inah Lutfia",
+        "role": "UI/UX Designer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/tabiinah_lutfia_ZmjMR2w.png",
+        "profile_url": "https://gdg.community.dev/u/mvmnf3/"
+      },
+      {
+        "nim": "123456789",
+        "name": "Vinitiara Ningrum",
+        "role": "Event Organizer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/vinitiara_ningrum.jpeg",
+        "profile_url": "https://gdg.community.dev/u/mvgeqs/"
+      },
+      {
+        "nim": "230535601505",
+        "name": "Rayyan",
+        "role": "Event Organizer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/rayyan_rayyan_eovrT6a.png",
+        "profile_url": "https://gdg.community.dev/u/mc84y7/"
+      },
+      {
+        "nim": "220761611344",
+        "name": "Dhyane Permata",
+        "role": "Event Organizer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/dhyane_permata_PK0J6Mg.png",
+        "profile_url": "https://gdg.community.dev/u/mnv2jw/"
+      },
+      {
+        "nim": "220121609589",
+        "name": "Syahru Ijtihadi",
+        "role": "Event Organizer",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/syahru_ijtihadi_0FWVr3n.png",
+        "profile_url": "https://gdg.community.dev/u/mpu4n7/"
+      },
+      {
+        "nim": "210811612430",
+        "name": "Yesenia Salsabila Az Zahra",
+        "role": "Human Resources",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/yesenia_salsabila_ffyrqAQ.png",
+        "profile_url": "https://gdg.community.dev/u/mwfu2n/"
+      },
+      {
+        "nim": "230312608130",
+        "name": "Dyah Ayu Nur Zubaidah",
+        "role": "Human Resources",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/dyahayu_.nz_hoPCN73.jpeg",
+        "profile_url": "https://gdg.community.dev/u/mzppyj/"
+      },
+      {
+        "nim": "220761611508",
+        "name": "Afgian Gala Mahiya Ikhsan",
+        "role": "Human Resources",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/afgian_gala_XTJgWqm.jpg",
+        "profile_url": "https://gdg.community.dev/u/mgjz38/"
+      },
+      {
+        "nim": "220432602597",
+        "name": "Ega Kenanga Putri",
+        "role": "Human Resources",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ega_kenanga_FQjyOCl.png",
+        "profile_url": "https://gdg.community.dev/u/mnusc7/"
+      },
+      {
+        "nim": "220422610714",
+        "name": "Keisya Shafia Auliansyah",
+        "role": "Public Relation",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/keisya_shafia_T5QcRFe.PNG",
+        "profile_url": "https://gdg.community.dev/u/mgsrgd/"
+      },
+      {
+        "nim": "243153921482",
+        "name": "Adi Wahyu Wardani",
+        "role": "Public Relation",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/adiwahyu_wardani_jInnlWD.png",
+        "profile_url": "https://gdg.community.dev/u/mvknmu/"
+      },
+      {
+        "nim": "210151601887",
+        "name": "Rosita Rezalia Oliviasari",
+        "role": "Public Relation",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/rosita_rezalia_NHJN0lv.jpeg",
+        "profile_url": "https://gdg.community.dev/u/m52745/"
+      },
+      {
+        "nim": "210121600439",
+        "name": "Trustha Cinantya Putri Tulungagung",
+        "role": "Public Relation",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/trustha_cinantya.png",
+        "profile_url": "https://gdg.community.dev/u/m6rkjd/"
+      },
+      {
+        "nim": "240253602478",
+        "name": "Nurlaila Mutiara Ningsih",
+        "role": "Creative Media",
+        "picture": "https://example.com/image.jpg",
+        "profile_url": "https://example.com/image.jpg"
+      },
+      {
+        "nim": "220312603619",
+        "name": "Muhammad Nizar Joenantama",
+        "role": "Creative Media",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/muhammad_nizar_knjkNRm.jpg",
+        "profile_url": "https://gdg.community.dev/u/muhammad077/"
+      },
+      {
+        "nim": "230516609993",
+        "name": "Ramadhan Teguh Brilianto",
+        "role": "Creative Media",
+        "picture": "https://example.com/image.jpg",
+        "profile_url": "https://example.com/image.jpg"
+      },
+      {
+        "nim": "220253603833",
+        "name": "Durrotun Hilmi Esa Sasmita",
+        "role": "Creative Media",
+        "picture": "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/durrotun_hilmi_PP6C3kY.jpeg",
+        "profile_url": "https://gdg.community.dev/u/mjfrhw/"
+      }
+    ]
+  }
