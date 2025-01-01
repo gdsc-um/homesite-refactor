@@ -1,3 +1,4 @@
+"use client"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
@@ -12,7 +13,7 @@ import {
 import { LogOut, User } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
+import { signOut } from "next-auth/react"
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -49,7 +50,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => signOut()}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                   </DropdownMenuItem>
