@@ -1,8 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
-import coreteamData from "../../../../data/coretim.json";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import coreteamData from "@/data/coreteam.json";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Container from "@/components/Container";
 import { Input } from "@/components/ui/input";
 import Swal from "sweetalert2";
@@ -56,9 +63,7 @@ export default function DataTable() {
   return (
     <Container ClassName="px-6 max-w-[80rem] mx-auto">
       <h1 className="text-2xl font-bold">Manage User</h1>
-      <p>
-          Total Member : {paginatedCoreteam.length}
-      </p>
+      <p>Total Member : {paginatedCoreteam.length}</p>
       <div className="flex justify-between items-center mb-4 mt-4">
         <div>
           <Button
@@ -120,7 +125,9 @@ export default function DataTable() {
                 <TableCell>
                   <Button
                     variant="outline"
-                    onClick={() => console.log(`Updating member: ${member.name}`)}
+                    onClick={() =>
+                      console.log(`Updating member: ${member.name}`)
+                    }
                   >
                     Update
                   </Button>
