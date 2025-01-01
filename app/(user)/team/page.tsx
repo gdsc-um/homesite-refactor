@@ -3,6 +3,17 @@ import path from "path";
 import CardName from "@/components/CardName";
 import Head from "next/head";
 
+export interface CoreTeamMember {
+  nim: string;
+  name: string;
+  role: string;
+  picture: string;
+  profile_url: string;
+}
+
+export interface CoreTeam {
+  coreteam: CoreTeamMember[];
+}
 
 export default async function Team() {
   // Membaca data JSON menggunakan path
@@ -12,7 +23,7 @@ export default async function Team() {
 
   return (
     <div className="w-full min-h-screen bg-white">
-              <Head>
+      <Head>
         <title>Core Team | GDSC Universitas Negeri Malang</title>
         <meta
           name="description"
@@ -24,8 +35,8 @@ export default async function Team() {
           Ini adalah tim kami
         </h1>
         <div className="grid lg:grid-cols-4 gap-5 mt-8">
-          {coreteam.map((member) => (
-            <CardName frontmatter={member} key={member.uuid} />
+          {coreteam.map((member: CoreTeamMember) => (
+            <CardName frontmatter={member} key={member.nim} />
           ))}
         </div>
       </div>
