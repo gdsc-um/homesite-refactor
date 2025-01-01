@@ -3,6 +3,13 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ...existing code...
+
+enum Role {
+  MEMBER
+  ADMIN
+  SUPERADMIN
+}
 
 generator client {
   provider = "prisma-client-js"
@@ -11,4 +18,16 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  nim      String
+  name      String
+  avatar    String
+  role      Role     @default(MEMBER)
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
