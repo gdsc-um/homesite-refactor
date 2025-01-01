@@ -1,9 +1,8 @@
-"use client"
-import Navbar from "@/components/Navbar"; // Pastikan jalur ini benar
-import Footer from "@/components/Footer"; // Pastikan jalur ini benar
 import localFont from "next/font/local";
-import { usePathname } from "next/navigation"; // Import usePathname untuk mengakses path
+import { NextAuthProvider } from "./providers/NextAuthProvider";
+import { SessionProvider } from '@/app/context/sessionContext'
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,21 +25,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Menggunakan useRouter untuk mendapatkan path saat ini
-  const pathname = usePathname();
-
-  // Mengecek apakah path mengandung "/admin"
-  const isAdminPage = pathname.startsWith('/admin/');
 
   return (
-    <html lang="en">
+    <html lang="id">
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/GDSC_Global.svg" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Navbar dan Footer hanya akan tampil jika bukan di halaman admin */}
-        {!isAdminPage && <Navbar />}
-        <main>{children}</main>
-        {!isAdminPage && <Footer />}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <main><NextAuthProvider><SessionProvider>{children}</SessionProvider></NextAuthProvider></main>
+        <Toaster />
       </body>
     </html>
   );
