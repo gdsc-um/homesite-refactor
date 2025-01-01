@@ -15,8 +15,14 @@ interface QuizParams {
   };
 }
 
-export default async function QuizPage({ params }: QuizParams) {
-  const { slug } = params;
+interface QuizPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function QuizPage({ params }: QuizPageProps) {
+  const resolvedParams = await params; // Resolve the promise
+  const { slug } = resolvedParams;
+
   // Mengambil data quiz dari file
   const fileContent = await fs.readFile(`quizzes/${slug}.json`, 'utf8');
   const quizData = JSON.parse(fileContent);
