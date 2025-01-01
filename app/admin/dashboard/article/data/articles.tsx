@@ -1,6 +1,6 @@
 import { Article } from "../lib/definition";
 
-const ARTICLES = [
+const ARTICLES: Article[] = [
   {
     id: '1',
     title: 'Article 1',

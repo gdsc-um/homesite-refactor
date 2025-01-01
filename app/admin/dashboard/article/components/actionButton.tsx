@@ -20,26 +20,24 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { Article } from '../lib/definition';
 
 interface ActionButtonProps {
-    data: Article,
-    type: "ARTICLE",
+    data: Article;
 }
 
-const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
+const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
 
     const handleSeeDetailClick = () => {
-        let url = `article/${data.id}`;
+        const url = `article/${data.id}`;
         router.push(url);
     }
 
     const handleEditClick = () => {
-        let url = `article/${data.id}/edit`;
+        const url = `article/${data.id}/edit`;
         router.push(url);
     }
 
@@ -63,7 +61,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
 
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <button onClick={handleEditClick} className="">
+                        <button onClick={handleEditClick}>
                             <Pencil size={15} />
                         </button>
                     </TooltipTrigger>
@@ -72,7 +70,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                     </TooltipContent>
                 </Tooltip>
 
-            <Dialog>
+                <Dialog>
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <DialogTrigger asChild>
@@ -85,29 +83,28 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                             <p>Delete</p>
                         </TooltipContent>
                     </Tooltip>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle className='flex items-center gap-2 mb-2'>
-                            <CircleAlert size={20} color='#ef4444' />
-                            Are you absolutely sure?
-                        </DialogTitle>
-                        <DialogDescription>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle className='flex items-center gap-2 mb-2'>
+                                <CircleAlert size={20} color='#ef4444' />
+                                Are you absolutely sure?
+                            </DialogTitle>
+                            <DialogDescription>
                                 This action cannot be undone. This will permanently delete article
-                            from our database.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                        <DialogClose asChild>
-                            <Button variant={'ghost'}>Cancel</Button>
-                        </DialogClose>
-                        <Button variant={'destructive'}>Yes, delete it.</Button>
-                    </DialogFooter>
-                </DialogContent>
+                                from our database.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button variant={'ghost'}>Cancel</Button>
+                            </DialogClose>
+                            <Button variant={'destructive'}>Yes, delete it.</Button>
+                        </DialogFooter>
+                    </DialogContent>
                 </Dialog>
             </div>
         </TooltipProvider>
-
     )
 }
 
-export default ActionButton
+export default ActionButton;

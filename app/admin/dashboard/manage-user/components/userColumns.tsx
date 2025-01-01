@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import ActionButton from "./actionButton"
 import { User } from "../lib/definition"
+import Image from 'next/image' // Import Image from next/image
 
 export const columns: ColumnDef<User>[] = [
     {
@@ -18,7 +19,13 @@ export const columns: ColumnDef<User>[] = [
         cell: ({ row }) => {
             const user = row.original;
             return <div className="py-4">
-                <img src={user.picture} alt="user" className="w-10 h-10 rounded-full" />
+                <Image 
+                    src={user.picture} 
+                    alt="user" 
+                    className="w-10 h-10 rounded-full" 
+                    width={40} // Set width
+                    height={40} // Set height
+                />
             </div>
         }
     },

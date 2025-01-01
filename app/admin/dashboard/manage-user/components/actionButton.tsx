@@ -20,17 +20,16 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { User } from '../lib/definition';
 
 interface ActionButtonProps {
     data: User,
-    type: "USER",
+    type: "USER";
 }
 
-const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
+const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
 
     const handleSeeDetailClick = () => {
@@ -40,7 +39,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
     }
 
     const handleEditClick = () => {
-        let url = `manage-user/${data.id}/edit`;
+        const url = `manage-user/${data.id}/edit`; // Changed to const
         router.push(url);
     }
 

@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import ActionButton from "./actionButton";
 import { Article } from "../lib/definition";
+import Image from "next/image"; // Import Image from next/image
 
 export const columns: ColumnDef<Article>[] = [
   {
@@ -60,10 +61,12 @@ export const columns: ColumnDef<Article>[] = [
       const article = row.original;
       return (
         <div className="py-4">
-          <img
+          <Image
             src={article.image}
             alt="article"
-            className="w-10 h-10 rounded-full"
+            width={40}  // Set fixed width
+            height={40} // Set fixed height
+            className="rounded-full" // Retain rounded shape
           />
         </div>
       );
@@ -76,7 +79,7 @@ export const columns: ColumnDef<Article>[] = [
     },
     cell: ({ row }) => {
       const article = row.original;
-      return <ActionButton type="ARTICLE" data={article} />;
+      return <ActionButton data={article} />;  // Just pass the `data` prop
     },
   },
 ];

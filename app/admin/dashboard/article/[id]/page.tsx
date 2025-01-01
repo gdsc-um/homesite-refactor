@@ -4,13 +4,14 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
+import Image from 'next/image'; // Import Image from next/image
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-const Page: FC<PageProps> = async ({ params }) => {
-  const { id } = await params;
+const Page: FC<PageProps> = ({ params }) => {
+  const { id } = params;
 
   const existingArticle = ARTICLES.find(article => article.id === id);
   if (!existingArticle) return notFound();
@@ -22,10 +23,12 @@ const Page: FC<PageProps> = async ({ params }) => {
         <h3 className="text-3xl font-semibold">{existingArticle.title}</h3>
         <p className="text-slate-500 text-sm">By: {existingArticle.author}</p>
         {existingArticle.image && (
-          <img
+          <Image
             src={existingArticle.image}
             alt={existingArticle.title}
-            className="w-[300px] h-auto rounded-md shadow-md"
+            width={300} // Set fixed width
+            height={200} // Set fixed height or adjust as needed
+            className="rounded-md shadow-md"
           />
         )}
         <Badge variant="outline" className="text-sm">
