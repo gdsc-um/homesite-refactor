@@ -1,6 +1,8 @@
-interface ActionResult {
-    errorTitle: string | null,
-    errorDesc: string[],
+export interface Article {
+    id: string,
+    title: string,
+    author: string,
+    date: string,
+    content: string,
+    image: string,
 }
-
-export { type ActionResult };

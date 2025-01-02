@@ -1,4 +1,6 @@
-const articles = [
+import { Article } from "../lib/definition";
+
+const ARTICLES: Article[] = [
   {
     id: '1',
     title: 'Article 1',
@@ -6,7 +8,9 @@ const articles = [
     date: '2023-01-01',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
+    image: "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/dimas_ardiminda_edia_putra_BOEQ0iu.jpg",
+
+    },
   {
     id: '2',
     title: 'Article 2',
@@ -14,6 +18,8 @@ const articles = [
     date: '2023-01-02',
     content:
       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    image: "https://example.com/webdev-article.jpg",
+
   },
   {
     id: '3',
@@ -22,23 +28,10 @@ const articles = [
     date: '2023-01-03',
     content:
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    image: "https://example.com/webdev-article.jpg",
   },
-  {
-    id: '4',
-    title: 'Article 4',
-    author: 'Author 4',
-    date: '2023-01-04',
-    content:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    id: '5',
-    title: 'Article 5',
-    author: 'Author 5',
-    date: '2023-01-05',
-    content:
-      'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra.',
-  },
+  
+
 ];
 
-export { articles };
+export { ARTICLES };

@@ -1,73 +1,95 @@
 "use client";
 
-import { FC, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { FC } from 'react';
+import { Article } from '../lib/definition'; // Ensure this type is correctly defined
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
-
-interface ArticleFormProps {
-  type: 'ADD' | 'EDIT';
-  article?: {
-    id: string;
-    title: string;
-    author: string;
-    date: string;
-    content: string;
-  };
+interface UserFormProps {
+    article?: Article;  // Optional because it may not be present in the "ADD" case
+    type: "ADD" | "EDIT";  // Type to distinguish between adding and editing
 }
 
-const ArticleForm: FC<ArticleFormProps> = ({ type, article }) => {
-  const router = useRouter();
-  const [title, setTitle] = useState(article?.title || '');
-  const [author, setAuthor] = useState(article?.author || '');
-  const [content, setContent] = useState(article?.content || '');
+const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
+    const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add logic to save the article
-    const date = new Date().toISOString().split('T')[0];
-    console.log({ title, author, date, content });
-    router.push('/admin/dashboard/article');
-  };
+    return (
+        <form className="flex flex-col gap-6">
+            {/* Title Field */}
+            <div className="space-y-1 md:space-y-2">
+                <Label className="text-lg" htmlFor="title">Title</Label>
+                <Input
+                    type="text"
+                    defaultValue={type === "ADD" ? '' : article?.title}
+                    name="title"
+                    id="title"
+                    required
+                />
+            </div>
 
-  return (
-    <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="author">Author</Label>
-          <Input
-            id="author"
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="content">Content</Label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-        </div>
-        <Button type="submit" className="px-4 py-2">
-          {type === 'ADD' ? 'Add Article' : 'Save Changes'}
-        </Button>
-      </form>
-    </div>
-  );
+            {/* Author Field */}
+            <div className="space-y-1 md:space-y-2">
+                <Label className="text-lg" htmlFor="author">Author</Label>
+                <Input
+                    type="text"
+                    defaultValue={type === "ADD" ? '' : article?.author}
+                    name="author"
+                    id="author"
+                    required
+                />
+            </div>
+
+            {/* Date Field */}
+            <div className="space-y-1 md:space-y-2">
+                <Label className="text-lg" htmlFor="date">Date</Label>
+                <Input
+                    type="date"
+                    defaultValue={type === "ADD" ? '' : article?.date}
+                    name="date"
+                    id="date"
+                    required
+                />
+            </div>
+
+            {/* Content Field */}
+            <div className="space-y-1 md:space-y-2">
+                <Label className="text-lg" htmlFor="content">Content</Label>
+                <Textarea
+                    defaultValue={type === "ADD" ? '' : article?.content}
+                    name="content"
+                    id="content"
+                    required
+                />
+            </div>
+
+            {/* Image Field */}
+            <div className="space-y-1 md:space-y-2">
+                <Label className="text-lg" htmlFor="image">Image</Label>
+                <Input
+                    type="url"
+                    defaultValue={type === "ADD" ? '' : article?.image}
+                    name="image"
+                    id="image"
+                    required
+                />
+            </div>
+
+            {/* Buttons */}
+            <div className="flex justify-end gap-4 mt-4 lg:mt-10">
+                <Button
+                    type="button"
+                    onClick={() => router.back()}
+                    variant="ghost"
+                >
+                    {type === "ADD" ? 'Cancel' : 'Back'}
+                </Button>
+                <Button>Save</Button>
+            </div>
+        </form>
+    );
 };
 
 export default ArticleForm;

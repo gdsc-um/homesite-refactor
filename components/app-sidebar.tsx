@@ -24,12 +24,12 @@ const menuItems = [
       },
       {
         title: "Article",
-        url: "artikel",
+        url: "article",
         icon: LetterText,
       },
       {
         title: "Quiz",
-        url: "#",
+        url: "quiz",
         icon: TextQuoteIcon,
       },
       {

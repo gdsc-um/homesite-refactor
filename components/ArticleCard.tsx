@@ -1,20 +1,22 @@
+// components/ArticleCard.tsx
 import IMAGEPLACEHOLDER from "@/assets/placeholder.jpg";
 import Image from "next/image";
 import Link from "next/link";
 
-/**
- * @param {string} slug - the slug of the article
- * @param {object} frontmatter - the frontmatter of the article
- * @param {string} frontmatter.title - the title of the article
- * @param {string} frontmatter.date - the date of the article
- * @param {string} frontmatter.excerpt - the excerpt of the article
- * @param {string[]} frontmatter.tags - the tags of the article
- * @param {string} frontmatter.thumbnail - the thumbnail image of the article
- * @returns {JSX.Element} - the article card component
- */
+// Define the props interface for ArticleCard
+interface ArticleCardProps {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    excerpt?: string;
+    tags: string[];
+    thumbnail?: string;
+  };
+}
 
-export default function ArticleCard({ slug, frontmatter }) {
-  let date = new Date(frontmatter.date).toLocaleDateString("id-ID", {
+export default function ArticleCard({ slug, frontmatter }: ArticleCardProps) {
+  const date = new Date(frontmatter.date).toLocaleDateString("id-ID", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -31,7 +33,7 @@ export default function ArticleCard({ slug, frontmatter }) {
           {frontmatter.thumbnail ? (
             <Image
               src={frontmatter.thumbnail}
-              alt=""
+              alt="thumbnail"
               className="w-full h-60 object-cover rounded-lg"
               width={1280}
               height={720}
@@ -39,7 +41,7 @@ export default function ArticleCard({ slug, frontmatter }) {
           ) : (
             <Image
               src={IMAGEPLACEHOLDER}
-              alt=""
+              alt="placeholder"
               className="w-full h-60 object-cover rounded-lg"
               width={1280}
               height={720}
@@ -62,9 +64,9 @@ export default function ArticleCard({ slug, frontmatter }) {
           </p>
         )}
         <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-          {frontmatter.tags.slice(0, 3).map((tag) => (
+          {frontmatter.tags.slice(0, 3).map((tag, index) => (
             <span
-              key={tag}
+              key={index}
               className="text-sm bg-blue-900 rounded-full px-3 py-1"
               id="articletag"
             >
