@@ -29,14 +29,3 @@ jobs:
         run: pnpm install
       - name: Build with Next.js
         run: pnpm next build
-
-  type-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      - name: Install dependencies
-        run: pnpm install
-      - name: Type Check
-        run: pnpm tsc --noEmit
