@@ -1,15 +1,38 @@
 import fs from "fs/promises";
 import ArticleCard from "@/components/ArticleCard";
 
+// Define a more specific type for metadata
+interface Metadata {
+  title: string;
+  description?: string;
+  date: string; // Change to non-optional string
+  tags: string[]; // Ensure tags is always a string array, no longer optional
+}
+
+interface Quiz {
+  slug: string;
+  metadata: Metadata; // Use the specific type for metadata
+}
+
 export default async function QuizPage() {
   // Read quizzes directory asynchronously
   const files = await fs.readdir("quizzes");
-  const quizzes = await Promise.all(
+
+  // Read each file and parse the metadata with type safety
+  const quizzes: Quiz[] = await Promise.all(
     files.map(async (fileName) => {
       const slug = fileName.replace(".json", "");
       const fileContent = await fs.readFile(`quizzes/${fileName}`, "utf-8");
       const { metadata } = JSON.parse(fileContent);
-      return { slug, metadata };
+
+      // Ensure tags is always an array (empty array if not provided)
+      const tags = metadata.tags ?? []; // Use empty array if undefined
+
+      // Provide a default value for date if it's undefined
+      const date = metadata.date ?? "Tanggal tidak tersedia"; // Default value for date
+
+      // Return the quiz object with tags and date ensured
+      return { slug, metadata: { ...metadata, tags, date } };
     })
   );
 

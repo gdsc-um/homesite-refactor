@@ -16,7 +16,7 @@ export interface CoreTeam {
 }
 
 export default async function Team() {
-  // Membaca data JSON menggunakan path
+  // Read JSON data
   const filePath = path.join(process.cwd(), "data", "coreteam.json");
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { coreteam } = JSON.parse(fileContent);
@@ -25,10 +25,7 @@ export default async function Team() {
     <div className="w-full min-h-screen bg-white">
       <Head>
         <title>Core Team | GDSC Universitas Negeri Malang</title>
-        <meta
-          name="description"
-          content="Core Team GDSC Universitas Negeri Malang"
-        />
+        <meta name="description" content="Core Team GDSC Universitas Negeri Malang" />
       </Head>
       <div className="mx-auto container py-32 flex flex-col gap-8 justify-center items-center">
         <h1 className="text-3xl lg:text-6xl text-center font-bold text-blue-500">
@@ -36,7 +33,13 @@ export default async function Team() {
         </h1>
         <div className="grid lg:grid-cols-4 gap-5 mt-8">
           {coreteam.map((member: CoreTeamMember) => (
-            <CardName frontmatter={member} key={member.nim} />
+            <CardName
+              key={member.nim}
+              name={member.name}
+              role={member.role}
+              picture={member.picture}
+              profile_url={member.profile_url}
+            />
           ))}
         </div>
       </div>
