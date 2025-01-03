@@ -1,4 +1,4 @@
-import { Questions, Quiz, User } from "@prisma/client";
+import { Questions, Quiz, QuizResult, User } from "@prisma/client";
 
 // export enum QuizType {
 //     WEB = "Web Developer",
@@ -31,4 +31,13 @@ import { Questions, Quiz, User } from "@prisma/client";
 //     author: string
 // }
 
-export type QuizWithAuthor = Quiz & { author: User, questions: Questions[] };
+export type QuizWithAuthor = Quiz & {
+    author: User;
+    questions: Questions[]
+};
+
+export type QuizWithAllRelations = Quiz & {
+    author: User;
+    questions: Questions[];
+    results: QuizResult[];
+}
