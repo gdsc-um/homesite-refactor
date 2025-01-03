@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FC } from 'react'
-import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -18,10 +17,10 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import { Quiz } from '@prisma/client';
+import { QuizWithAllRelations } from '../lib/definition';
 
 interface QuizFormProps {
-    quiz?: Quiz,
+    quiz?: QuizWithAllRelations,
     type: "ADD" | "EDIT"
 }
 
@@ -46,7 +45,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
 
     async function onSubmit(values: z.infer<typeof schema>) {
         const response = await fetch('/api/quizzes', {
-            method: "POST",
+            method: type === "ADD" ? "POST" : "PUT",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -145,7 +144,11 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
                         </div>
                     </div>
 
-                    <Button type='submit'>Submit</Button>
+                    {/* <Button type='submit'>Submit</Button> */}
+                    <div className='flex justify-end gap-4 mt-2'>
+                        <Button type='button' onClick={() => router.back()} variant='ghost'>{type === "ADD" ? 'Cancel' : 'Back'}</Button>
+                        <Button>Save</Button>
+                    </div>
                 </form>
             </Form>
         </>

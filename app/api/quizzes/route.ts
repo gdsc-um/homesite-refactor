@@ -9,9 +9,12 @@ export const GET = async (req: NextRequest) => {
             include: {
                 author: true,
                 questions: true
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         });
-        return NextResponse.json({ success: true, quizzes });
+        return NextResponse.json({ success: true, data: quizzes });
     } catch (error) {
         console.log(error);
         return NextResponse.json({ success: false, message: "An error occurred" }, { status: 500 });

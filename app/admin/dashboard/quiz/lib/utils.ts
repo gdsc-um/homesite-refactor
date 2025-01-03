@@ -1,14 +1,14 @@
-import { QuizType } from "./definition";
+import { QuizType } from "@prisma/client";
 
 export const getBadgeColor = (type: QuizType) => {
     switch (type) {
-        case QuizType.WEB:
+        case type = "WEB":
             return "bg-blue-500 text-white";
-        case QuizType.ML:
+        case type = "ML":
             return "bg-green-500 text-white";
-        case QuizType.MOBILE:
+        case type = "MOBILE":
             return "bg-indigo-500 text-white";
-        case QuizType.UIUX:
+        case type = "UIUX":
             return "bg-pink-500 text-white";
     }
 }

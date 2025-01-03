@@ -36,13 +36,13 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
 
     const handleSeeDetailClick = () => {
         let url = `quiz/${data.id}`;
-        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/questions/${data.id}`;
         router.push(url);
     }
 
     const handleEditClick = () => {
         let url = `quiz/${data.id}/edit`;
-        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}/edit`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/questions/${data.id}/edit`;
         router.push(url);
     }
 

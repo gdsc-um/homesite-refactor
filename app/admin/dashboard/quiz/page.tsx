@@ -6,7 +6,6 @@ import { FC, useEffect, useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { columns } from "./components/quizColumns";
-import { QUIZZES } from "./data/quizzes";
 import { Quiz, User } from "@prisma/client";
 import { QuizWithAuthor } from "./lib/definition";
 
@@ -14,13 +13,15 @@ import { QuizWithAuthor } from "./lib/definition";
 
 const QuizPage: FC = () => {
     const [quizzes, setQuizzes] = useState<QuizWithAuthor[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
 
     useEffect(() => {
         const fetchQuizzes = async () => {
             const response = await fetch('/api/quizzes');
             const data = await response.json();
-            setQuizzes(data.quizzes);
+            setQuizzes(data.data);
+            setIsLoading(false);
         }
         fetchQuizzes();
     }, [])
@@ -37,7 +38,8 @@ const QuizPage: FC = () => {
                 </div>
             </header>
 
-            <DataTable columns={columns} data={quizzes} />
+            {!isLoading && <DataTable columns={columns} data={quizzes} />}
+            {isLoading && <h4 className="text-center animate-pulse text-lg mt-10">Loading...</h4>}
         </div>
     )
 }
