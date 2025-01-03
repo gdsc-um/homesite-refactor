@@ -2,14 +2,28 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { columns } from "./components/quizColumns";
 import { QUIZZES } from "./data/quizzes";
+import { Quiz, User } from "@prisma/client";
+import { QuizWithAuthor } from "./lib/definition";
+
+
 
 const QuizPage: FC = () => {
+    const [quizzes, setQuizzes] = useState<QuizWithAuthor[]>([]);
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchQuizzes = async () => {
+            const response = await fetch('/api/quizzes');
+            const data = await response.json();
+            setQuizzes(data.quizzes);
+        }
+        fetchQuizzes();
+    }, [])
 
     return (
         <div className="px-6 max-w-[80rem] mx-auto">
@@ -23,7 +37,7 @@ const QuizPage: FC = () => {
                 </div>
             </header>
 
-            <DataTable columns={columns} data={QUIZZES} />
+            <DataTable columns={columns} data={quizzes} />
         </div>
     )
 }
