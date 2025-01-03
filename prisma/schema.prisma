@@ -20,6 +20,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum QuizType {
+  WEB
+  MOBILE
+  ML
+  UIUX
+  OTHER
+}
+
 model User {
   id        String   @id @default(uuid())
   nim      String
@@ -53,6 +61,7 @@ model Quiz {
   image     String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+  quizType  QuizType
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   questions Questions[]

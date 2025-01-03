@@ -23,10 +23,11 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { Question, Quiz } from '../lib/definition';
+import { QuizWithAuthor } from '../lib/definition';
+import { Questions } from '@prisma/client';
 
 interface ActionButtonProps {
-    data: Question | Quiz,
+    data: Questions | QuizWithAuthor,
     type: "QUIZ" | "QUESTION",
 }
 
