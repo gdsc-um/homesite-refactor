@@ -23,16 +23,6 @@ export const columns: ColumnDef<Questions>[] = [
             </div>
         }
     },
-    // {
-    //     accessorKey: "author",
-    //     header: "Author",
-    //     cell: ({ row }) => {
-    //         const question = row.original;
-    //         return <div className="py-4">
-    //             {question.author.name}
-    //         </div>
-    //     }
-    // },
     {
         id: "action",
         header: () => {
