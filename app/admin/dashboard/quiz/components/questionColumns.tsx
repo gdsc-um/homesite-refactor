@@ -2,10 +2,10 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import ActionButton from "./actionButton"
-import { Question } from "../lib/definition"
+import { Questions } from "@prisma/client"
 
 
-export const columns: ColumnDef<Question>[] = [
+export const columns: ColumnDef<Questions>[] = [
     {
         id: "count",
         header: "#",
@@ -20,16 +20,6 @@ export const columns: ColumnDef<Question>[] = [
             const question = row.original;
             return <div className="py-4">
                 {question.question}
-            </div>
-        }
-    },
-    {
-        accessorKey: "author",
-        header: "Author",
-        cell: ({ row }) => {
-            const question = row.original;
-            return <div className="py-4">
-                {question.author}
             </div>
         }
     },
