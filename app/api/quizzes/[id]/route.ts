@@ -60,7 +60,7 @@ export const DELETE = async (req: NextRequest, context: Context) => {
         const { id } = await context.params;
         await prisma.quiz.delete({
             where: {
-                id
+                id: id
             }
         });
         return NextResponse.json({ success: true, message: "Quiz deleted successfully" });

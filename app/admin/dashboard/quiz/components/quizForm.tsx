@@ -44,7 +44,9 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
     })
 
     async function onSubmit(values: z.infer<typeof schema>) {
-        const response = await fetch('/api/quizzes', {
+        let url = `/api/quizzes`;
+        if (type === "EDIT") url += `/${quiz?.id}`;
+        const response = await fetch(url, {
             method: type === "ADD" ? "POST" : "PUT",
             headers: {
                 'Content-Type': 'application/json',
