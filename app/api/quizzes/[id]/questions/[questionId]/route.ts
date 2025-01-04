@@ -4,10 +4,10 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Context {
-    params: {
+    params: Promise<{
         id: string,
-        questionId: string,
-    }
+        questionId: string
+    }>
 }
 
 export const GET = async (req: NextRequest, context: Context) => {

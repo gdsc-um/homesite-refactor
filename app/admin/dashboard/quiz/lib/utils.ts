@@ -1,6 +1,6 @@
 import { QuizType } from "@prisma/client";
 
-export const getBadgeColor = (type: QuizType) => {
+export const getBadgeColor = (type: QuizType | string) => {
     switch (type) {
         case type = "WEB":
             return "bg-blue-500 text-white";

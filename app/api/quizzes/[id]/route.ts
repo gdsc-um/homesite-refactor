@@ -2,9 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Context {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export const GET = async (req: NextRequest, context: Context) => {

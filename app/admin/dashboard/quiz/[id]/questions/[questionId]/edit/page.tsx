@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import QuestionForm from '../../../components/questionForm'
-import { QUESTIONS } from '../../../../data/questions';
 import { notFound, useParams } from 'next/navigation';
 import { Questions } from '@prisma/client';
 
@@ -20,7 +19,7 @@ const EditQuestionPage = () => {
             setIsLoading(false);
         }
         fetchQuestion();
-    }, [])
+    }, [quizId, questionId])
 
     return (
         <div className='px-6 py-4 max-w-[80rem] mx-auto flex flex-col gap-4'>

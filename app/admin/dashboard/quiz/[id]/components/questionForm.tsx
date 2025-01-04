@@ -3,7 +3,6 @@ import { useParams, useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { FC } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Questions } from '@prisma/client';
@@ -42,8 +41,8 @@ const schema = z.object({
 const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
     const router = useRouter();
     const { id: quizId } = useParams();
-    let formatedQuestionAnswer: { options: QuestionAnswer[] } = type !== "ADD" ? JSON.parse(question?.answer!) : {};
-    const correctAnswerIndex = formatedQuestionAnswer?.options?.findIndex(option => option.isCorrect);
+    const formatedQuestionAnswer: { options: QuestionAnswer[] } = type !== "ADD" && question?.answer ? JSON.parse(question?.answer) : {};
+    const correctAnswerIndex = formatedQuestionAnswer?.options?.findIndex(option => option.isCorrect)
 
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),

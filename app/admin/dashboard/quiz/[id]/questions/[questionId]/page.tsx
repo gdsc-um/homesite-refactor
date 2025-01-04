@@ -19,12 +19,7 @@ const QuestionPage = () => {
             setIsLoading(false);
         }
         fetchQuestion();
-    }, [])
-
-    // const { questionId } = await params;
-
-    // const existingQuestion = QUESTIONS.find(question => question.id === questionId);
-    // if (!existingQuestion) return notFound();
+    }, [quizId, questionId]);
 
     return (
         <div className='px-6 py-4 max-w-[80rem] mx-auto flex flex-col gap-4'>

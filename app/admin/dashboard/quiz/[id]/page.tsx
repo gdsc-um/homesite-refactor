@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import { DataTable } from '@/components/ui/data-table';
 import { columns } from '../components/questionColumns';
@@ -13,11 +13,8 @@ import { Input } from '@/components/ui/input';
 import { QuizWithAllRelations } from '../lib/definition';
 import AddQuestionButton from './components/addQuestionButton';
 
-interface PageProps {
 
-}
-
-const Page: FC<PageProps> = () => {
+const Page = () => {
     const [quiz, setQuiz] = useState<QuizWithAllRelations | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { id } = useParams();
@@ -30,7 +27,7 @@ const Page: FC<PageProps> = () => {
             setIsLoading(false);
         }
         fetchQuiz();
-    }, [])
+    }, [id])
 
 
     return (
@@ -46,10 +43,9 @@ const Page: FC<PageProps> = () => {
 
                     </div>
                     <div className='flex flex-col gap-2 items-end justify-end'>
-                        <Badge variant={'outline'} className={cn(getBadgeColor(quiz?.quizType!))}>{quiz?.quizType}</Badge>
-                        <p className='text-slate-500'>By: {quiz?.author.name}</p>
+                        <Badge variant={'outline'} className={cn(getBadgeColor(quiz?.quizType ?? ""))}>{quiz?.quizType}</Badge>
+                        <p className='text-slate-500'>By: {quiz?.author?.name}</p>
                     </div>
-
                 </div>
 
                 <div className='flex flex-col gap-2 mt-10'>
@@ -62,7 +58,7 @@ const Page: FC<PageProps> = () => {
                     </div>
                 </div>
 
-                <DataTable columns={columns} data={quiz?.questions!} />
+                <DataTable columns={columns} data={quiz?.questions ?? []} />
                 <Link className='hover:underline flex items-center' href={'/admin/dashboard/quiz'}>
                     <ChevronLeft size={20} />
                     Back

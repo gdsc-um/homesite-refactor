@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { notFound, useParams } from 'next/navigation';
 import QuizForm from '../../components/quizForm';
 import { QuizWithAllRelations } from '../../lib/definition';
@@ -18,7 +18,7 @@ const EditQuizPage = () => {
             setIsLoading(false);
         }
         fetchQuiz();
-    }, []);
+    }, [id]);
 
 
     return (

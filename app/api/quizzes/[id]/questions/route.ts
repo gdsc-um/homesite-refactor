@@ -4,9 +4,9 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Context {
-    params: {
-        id: string,
-    }
+    params: Promise<{
+        id: string
+    }>
 }
 
 export const GET = async (req: NextRequest, context: Context) => {
