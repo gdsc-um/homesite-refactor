@@ -12,14 +12,43 @@ interface Context {
 export const GET = async (req: NextRequest, context: Context) => {
     try {
         const { id } = await context.params;
-        const questions = await prisma.questions.findMany({
-            where: {
-                quizId: id,
-            },
-            orderBy: {
-                createdAt: 'asc'
-            },
-        })
+        const searchParams = req.nextUrl.searchParams;
+        const searchQuery = searchParams.get('search');
+        let questions = []
+        if (searchQuery) {
+            questions = await prisma.questions.findMany({
+                where: {
+                    AND: [
+                        {
+                            quizId: id
+                        },
+                        {
+                            OR: [
+                                {
+                                    question: {
+                                        contains: searchQuery
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                orderBy: {
+                    createdAt: "asc"
+                }
+            })
+        }
+        else {
+            questions = await prisma.questions.findMany({
+                where: {
+                    quizId: id,
+                },
+                orderBy: {
+                    createdAt: 'asc'
+                },
+            });
+        }
+
         if (!questions) return NextResponse.json({ success: false, message: "Questions not found" }, { status: 404 });
         return NextResponse.json({ success: true, data: questions });
     } catch (error) {

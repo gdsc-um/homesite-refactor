@@ -5,7 +5,55 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
     try {
-        const quizzes = await prisma.quiz.findMany({
+        const searchParams = req.nextUrl.searchParams;
+        const searchQuery = searchParams.get('search');
+        let quizzes;
+        if (searchQuery) {
+            quizzes = await prisma.quiz.findMany({
+                include: {
+                    author: true,
+                    questions: true,
+                },
+                where: {
+                    OR: [
+                        {
+                            title: {
+                                contains: searchQuery,
+                            }
+                        },
+                        {
+                            content: {
+                                contains: searchQuery
+                            }
+                        },
+                        {
+                            author: {
+                                OR: [
+                                    {
+                                        name: {
+                                            contains: searchQuery
+                                        }
+                                    },
+                                    {
+                                        email: {
+                                            contains: searchQuery
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+
+                        }
+                    ]
+                },
+                orderBy: {
+                    createdAt: "asc"
+                }
+            })
+        }
+        else {
+            quizzes = await prisma.quiz.findMany({
             include: {
                 author: true,
                 questions: true
@@ -14,6 +62,8 @@ export const GET = async (req: NextRequest) => {
                 createdAt: "asc"
             }
         });
+        }
+
         return NextResponse.json({ success: true, data: quizzes });
     } catch (error) {
         console.log(error);
