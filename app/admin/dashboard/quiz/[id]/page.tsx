@@ -21,6 +21,7 @@ const Page = () => {
     const [questions, setQuestions] = useState<Questions[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { id } = useParams();
+
     useEffect(() => {
         const fetchQuiz = async () => {
             let url = `/api/quizzes/${id}`;
@@ -45,34 +46,34 @@ const Page = () => {
             <h3 className='text-3xl font-semibold'>Quiz Detail</h3>
             {!isLoading &&
                 <>
-                <div className='grid grid-cols-2 items-center'>
-                    <div className='space-y-2'>
-                        <h4 className='text-xl font-semibold'>{quiz?.title}</h4>
-                        {quiz?.image && <img src={quiz.image} alt="" />}
-                        <p>{quiz?.content}</p>
+                    <div className='grid grid-cols-2 items-center'>
+                        <div className='space-y-2'>
+                            <h4 className='text-xl font-semibold'>{quiz?.title}</h4>
+                            {quiz?.image && <img src={quiz.image} alt="" />}
+                            <p>{quiz?.content}</p>
+
+                        </div>
+                        <div className='flex flex-col gap-2 items-end justify-end'>
+                            <Badge
+                                variant={"outline"}
+                                className={cn(getBadgeColor(quiz?.quizType ?? ""))}
+                            >
+                                {quiz?.quizType}
+                            </Badge>
+                            <p className='text-slate-500'>By: {quiz?.author?.name}</p>
+                        </div>
 
                     </div>
-                    <div className='flex flex-col gap-2 items-end justify-end'>
-                        <Badge
-                            variant={"outline"}
-                            className={cn(getBadgeColor(quiz?.quizType ?? ""))}
-                        >
-                            {quiz?.quizType}
-                        </Badge>
-                        <p className='text-slate-500'>By: {quiz?.author?.name}</p>
-                    </div>
 
-                </div>
-
-                <div className='flex flex-col gap-2 mt-10'>
-                    <h3 className="font-semibold text-xl">Questions</h3>
-                    <div className="grid grid-cols-2">
-                        <AddQuestionButton quizId={id} />
-                        <div className="flex justify-end">
-                            <Input value={searchInput} onChange={({ target }) => setSearchInput(target.value)} className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
+                    <div className='flex flex-col gap-2 mt-10'>
+                        <h3 className="font-semibold text-xl">Questions</h3>
+                        <div className="grid grid-cols-2">
+                            <AddQuestionButton quizId={id} />
+                            <div className="flex justify-end">
+                                <Input value={searchInput} onChange={({ target }) => setSearchInput(target.value)} className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <DataTable columns={columns} data={questions ?? []} />
                     <Link className='hover:underline flex items-center' href={'/admin/dashboard/quiz'}>
