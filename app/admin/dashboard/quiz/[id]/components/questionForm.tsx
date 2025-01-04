@@ -75,7 +75,7 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-2'>
+                <div className='flex flex-col gap-2'>
                     {/* <Label className='text-lg ' htmlFor='question'>Question:</Label> */}
                     <FormField
                         control={form.control}
@@ -89,10 +89,10 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                                 <FormMessage />
                             </FormItem>
                         }} />
-            </div>
+                </div>
 
-            <div className='grid sm:grid-cols-2 gap-4'>
-                <div className='flex items-center gap-2'>
+                <div className='grid sm:grid-cols-2 gap-4'>
+                    <div className='flex items-center gap-2'>
                         <FormField
                             control={form.control}
                             name='option1'
@@ -105,8 +105,8 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                                     <FormMessage />
                                 </FormItem>
                             }} />
-                </div>
-                <div className='flex items-center gap-2'>
+                    </div>
+                    <div className='flex items-center gap-2'>
                         <FormField
                             control={form.control}
                             name='option2'
@@ -119,8 +119,8 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                                     <FormMessage />
                                 </FormItem>
                             }} />
-                </div>
-                <div className='flex items-center gap-2'>
+                    </div>
+                    <div className='flex items-center gap-2'>
                         <FormField
                             control={form.control}
                             name='option3'
@@ -133,8 +133,8 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                                     <FormMessage />
                                 </FormItem>
                             }} />
-                </div>
-                <div className='flex items-center gap-2'>
+                    </div>
+                    <div className='flex items-center gap-2'>
                         <FormField
                             control={form.control}
                             name='option4'
@@ -147,10 +147,10 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                                     <FormMessage />
                                 </FormItem>
                             }} />
+                    </div>
                 </div>
-            </div>
 
-            <div className='space-y-2 mt-4'>
+                <div className='space-y-2 mt-4'>
                     <FormField
                         control={form.control}
                         name="correctAnswerIndex"
@@ -203,13 +203,13 @@ const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
                             </FormItem>
                         )}
                     />
-            </div>
+                </div>
 
-            <div className='flex justify-end gap-4 mt-2'>
-                <Button type='button' onClick={() => router.back()} variant='ghost'>{type === "ADD" ? 'Cancel' : 'Back'}</Button>
-                {type !== "SEE" && <Button>Save</Button>}
-            </div>
-        </form>
+                <div className='flex justify-end gap-4 mt-2'>
+                    <Button type='button' onClick={() => router.back()} variant='ghost'>{type === "ADD" ? 'Cancel' : 'Back'}</Button>
+                    {type !== "SEE" && <Button>Save</Button>}
+                </div>
+            </form>
         </Form>
 
     )
