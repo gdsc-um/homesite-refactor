@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
         // Form data checking and password length checking
         if (!name || !email) {
-            return NextResponse.json({ error: "field username, name, and email is required" }, { status: 400 })
+            return NextResponse.json({ error: "field name and email is required" }, { status: 400 })
         }
 
         // Check if the email is valid

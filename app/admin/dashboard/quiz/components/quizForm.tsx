@@ -55,7 +55,12 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
         });
         await response.json();
         if (response.ok) {
-            router.push('/admin/dashboard/quiz');
+            if (response.ok) {
+                router.push('/admin/dashboard/quiz');
+            } else {
+                console.error('Failed to save the quiz:', response.statusText);
+                // Handle the error appropriately here, e.g., show a notification to the user
+            }
         }
     }
     const router = useRouter();

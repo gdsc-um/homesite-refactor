@@ -53,7 +53,7 @@ const Navbar = () => {
             </Link>
           ))}
           {/* ! HELP */}
-          {/* plase make new component for this button */}
+          {/* please make new component for this button */}
           <button onClick={() => signOut({ redirect: false }).then(() => {
                               window.location.href = "/auth/login";
                             })} className="mr-0 text-black font-medium">
