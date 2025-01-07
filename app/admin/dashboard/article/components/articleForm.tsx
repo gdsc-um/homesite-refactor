@@ -56,17 +56,18 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
         });
     
         if (response.ok) {
-            toast.success('Article added successfully!'); // Show success toast
-            router.push('/admin/dashboard/article'); // Redirect after successful submission
-        } else if (response.status === 500) {
+            toast.success('Article added successfully!');
+            router.push('/admin/dashboard/article');
+        } else {
             const errorResponse = await response.json();
-            // console.error('Error:', errorResponse.error);
-            alert(errorResponse.error || 'Something went wrong');
-            
-        } else{
-           router.push('/admin/dashboard/article');
+            if (response.status === 400 && errorResponse.error === 'Slug already exists') {
+                toast.error('Slug already exists. Please choose a different one.');
+            } else {
+                toast.error('Something went wrong');
+            }
         }
     };
+    
     
 
     return (

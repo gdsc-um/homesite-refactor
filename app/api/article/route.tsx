@@ -11,23 +11,36 @@ export async function GET() {
     }
 }
 
-export async function POST(req: Request) {
-    const { title, slug, author, date, content, image } = await req.json(); // Ganti banner ke image
-    
-    try {
-        const newArticle = await prisma.article.create({
-            data: {
-                title,
-                slug,
-                author,
-                date: new Date(date),
-                content,
-                banner: image, // Jika kolom di database bernama banner, Anda bisa menyesuaikan
-            },
-        });
 
-        return NextResponse.json(newArticle, { status: 201 });
-    } catch (error) {
-        return NextResponse.json({ error: 'Failed to add article' }, { status: 400 });
+export async function POST(req: Request) {
+  const { title, slug, author, date, content, banner } = await req.json();
+
+  try {
+    // Cek apakah slug sudah ada di database
+    const existingArticle = await prisma.article.findUnique({
+      where: { slug },
+    });
+
+    if (existingArticle) {
+      return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
+
+    // Jika slug tidak ada, lanjutkan dengan menambahkan artikel
+    const newArticle = await prisma.article.create({
+      data: {
+        title,
+        slug,
+        author,
+        date: new Date(date),
+        content,
+        banner,
+      },
+    });
+
+    return NextResponse.json(newArticle, { status: 201 });
+  } catch (error) {
+    console.error('Error:', error);
+    return NextResponse.json({ error: 'Failed to add article' }, { status: 500 });
+  }
 }
+

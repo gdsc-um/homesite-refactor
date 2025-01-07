@@ -25,31 +25,30 @@ export default async function Page({ params }: PageProps) {
     <div className="px-6 py-4 max-w-[80rem] mx-auto flex flex-col gap-8">
       {/* Header Section */}
       <div className="flex flex-col items-center text-center gap-4">
-        <h3 className="text-3xl font-semibold">{existingArticle.title}</h3>
-        <p className="text-slate-500 text-sm">By: {existingArticle.author}</p>
-        {existingArticle.banner && (
-          // https://drive.google.com/file/d/1T2A6rV-IejAqrVZpAMpeL9PjP_RZG-1L
-          <Image
-            src={`https://drive.google.com/uc?id=${existingArticle.banner}`}
+        
+      <Image
+            src="/banner.png"
             // src={`https://drive.google.com/uc?id=1T2A6rV-IejAqrVZpAMpeL9PjP_RZG-1L`}
-            alt={existingArticle.title}
+            alt={"banner"}
             width={600}
             height={300}
             className="rounded-md shadow-md"
-          />
-        )}
-        <Badge variant="outline" className="text-sm">
-          {new Date(existingArticle.createdAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </Badge>
+        />
+        <h3 className="text-3xl font-semibold">{existingArticle.title}</h3>
+        <div className="flex flex-col items-start text-start gap-2">
+          <Badge variant="outline" className="text-sm">
+            {existingArticle.date?.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </Badge>
+          <p className="text-slate-500 text-sm">By: {existingArticle.author}</p>
+        </div>
       </div>
 
       {/* Content Section */}
       <div className="flex flex-col gap-4">
-        <h4 className="text-xl font-semibold">Content</h4>
         <p className="text-justify text-slate-700 leading-relaxed">
           {existingArticle.content}
         </p>
