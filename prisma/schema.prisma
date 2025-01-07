@@ -47,7 +47,7 @@ model Article {
   id        String   @id @default(uuid())
   title     String
   content   String   @db.Text
-  image     String
+  image     String?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   createdAt DateTime @default(now())
@@ -58,7 +58,7 @@ model Quiz {
   id        String   @id @default(uuid())
   title     String
   content   String
-  image     String
+  image     String?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   quizType  QuizType
@@ -71,6 +71,7 @@ model Quiz {
 model Questions {
   id        String   @id @default(uuid())
   question  String
+  image     String?
   answer    String
   quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   quizId    String
