@@ -38,7 +38,6 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  articles  Article[]
   quizzes   Quiz[]
   results   QuizResult[]
 }
@@ -47,9 +46,9 @@ model Article {
   id        String   @id @default(uuid())
   title     String
   content   String   @db.Text
-  image     String?
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  banner     String?
+  author    String
+  slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
