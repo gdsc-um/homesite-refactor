@@ -49,10 +49,14 @@ export default async function Page({ params }: PageProps) {
 
       {/* Content Section */}
       <div className="flex flex-col gap-4">
-        <p className="text-justify text-slate-700 leading-relaxed">
-          {existingArticle.content}
-        </p>
+        <p
+          className="text-justify text-slate-700 leading-relaxed"
+          dangerouslySetInnerHTML={{
+            __html: existingArticle.content.replace(/\n/g, '<br />'),
+          }}
+        />
       </div>
+
 
       {/* Back Button */}
       <Link
