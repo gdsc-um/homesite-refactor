@@ -7,13 +7,6 @@ import Image from "next/image"; // Import Image from next/image
 
 export const columns: ColumnDef<Article>[] = [
   {
-    id: "count",
-    header: "#",
-    cell: ({ row }) => {
-      return <div className="py-4">{row.index + 1}.</div>;
-    },
-  },
-  {
     accessorKey: "title",
     header: "Title",
     cell: ({ row }) => {
@@ -30,11 +23,13 @@ export const columns: ColumnDef<Article>[] = [
     },
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "createdAt",
+    header: "Date Created",
     cell: ({ row }) => {
       const article = row.original;
-      return <div className="py-4">{article.date}</div>;
+      // Format the date if needed
+      const formattedDate = new Date(article.createdAt).toLocaleDateString();
+      return <div className="py-4">{formattedDate}</div>;
     },
   },
   {
@@ -55,16 +50,20 @@ export const columns: ColumnDef<Article>[] = [
     },
   },
   {
-    accessorKey: "image",
-    header: "Image",
+    accessorKey: "banner",
+    header: "Banner",
     cell: ({ row }) => {
       const article = row.original;
+
+      // Handle empty or invalid `banner` values
+      const imageSrc = article.banner || "/placeholder-image.png";
+
       return (
         <div className="py-4">
           <Image
-            src={article.image}
-            alt="article"
-            width={40}  // Set fixed width
+            src={imageSrc}
+            alt="article banner"
+            width={40} // Set fixed width
             height={40} // Set fixed height
             className="rounded-full" // Retain rounded shape
           />
@@ -79,7 +78,7 @@ export const columns: ColumnDef<Article>[] = [
     },
     cell: ({ row }) => {
       const article = row.original;
-      return <ActionButton data={article} />;  // Just pass the `data` prop
+      return <ActionButton data={article} />;
     },
   },
 ];
