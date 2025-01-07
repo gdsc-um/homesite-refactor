@@ -1,4 +1,7 @@
+"use client"; // tempoarary
+
 import LogoGDSC from "@/assets/gdsc-logo-light.png";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -49,6 +52,13 @@ const Navbar = () => {
               {link.title}
             </Link>
           ))}
+          {/* ! HELP */}
+          {/* please make new component for this button */}
+          <button onClick={() => signOut({ redirect: false }).then(() => {
+                              window.location.href = "/auth/login";
+                            })} className="mr-0 text-black font-medium">
+            Logout
+          </button>
         </nav>
       </div>
     </header>

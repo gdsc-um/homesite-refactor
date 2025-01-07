@@ -3,7 +3,7 @@
 import React, { FC } from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { z } from 'zod';
@@ -38,7 +38,7 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
         defaultValues: {
             title: type === "ADD" ? '' : quiz?.title,
             content: type === "ADD" ? '' : quiz?.content,
-            image: type === "ADD" ? '' : quiz?.image,
+            image: type === "ADD" ? '' : quiz?.image ?? '',
             quizType: type === "ADD" ? '' : quiz?.quizType
         }
     })
@@ -53,9 +53,14 @@ const QuizForm: FC<QuizFormProps> = ({ quiz, type }) => {
             },
             body: JSON.stringify(values)
         });
-        const data = await response.json();
+        await response.json();
         if (response.ok) {
-            router.push('/admin/dashboard/quiz');
+            if (response.ok) {
+                router.push('/admin/dashboard/quiz');
+            } else {
+                console.error('Failed to save the quiz:', response.statusText);
+                // Handle the error appropriately here, e.g., show a notification to the user
+            }
         }
     }
     const router = useRouter();

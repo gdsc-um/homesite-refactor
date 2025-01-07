@@ -11,6 +11,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
+
+export type UserRole = "MEMBER" | "ADMIN" | "SUPERADMIN" | undefined;
+interface AppSidebarProps {
+  userRole: UserRole;
+}
 
 // Menu items with categories
 const menuItems = [
@@ -19,24 +25,24 @@ const menuItems = [
     items: [
       {
         title: "Home",
-        url: "dashboard",
+        url: "/admin/dashboard",
         icon: Home,
       },
       {
         title: "Article",
-        url: "article",
+        url: "/admin/dashboard/article",
         icon: LetterText,
       },
       {
         title: "Quiz",
-        url: "quiz",
+        url: "/admin/dashboard/quiz",
         icon: TextQuoteIcon,
       },
       {
         title: "Manage User",
-        url: "manage-user",
+        url: "/admin/dashboard/manage-user",
         icon: User,
-        requiresAdmin: true, // Tambahkan properti untuk mempermudah filter
+        requiredRoles: ["SUPERADMIN"],
       },
     ],
   },
@@ -45,17 +51,15 @@ const menuItems = [
     items: [
       {
         title: "Profile",
-        url: "#",
+        url: "/admin/profile",
         icon: Settings,
       },
     ],
   },
 ];
 
-// super admin condition
-const isSuperAdmin = true;
 
-export function AppSidebar() {
+export function AppSidebar({ userRole }: AppSidebarProps) {
   return (
     <Sidebar variant="inset">
       {/* Sidebar Header */}
@@ -85,14 +89,19 @@ export function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {category.items
-                  .filter((item) => !item.requiresAdmin || isSuperAdmin) // Filter berdasarkan kondisi
+                  .filter((item) => {
+                    if (!item.requiredRoles) {
+                      return true; 
+                    }
+                    return item.requiredRoles.includes(userRole || "");
+                  })
                   .map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <a href={item.url}>
+                        <Link href={item.url}>
                           <item.icon className="mr-2" />
                           <span>{item.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
