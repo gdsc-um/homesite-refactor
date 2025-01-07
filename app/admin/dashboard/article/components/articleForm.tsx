@@ -58,7 +58,7 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
         if (response.ok) {
             toast.success('Article added successfully!'); // Show success toast
             router.push('/admin/dashboard/article'); // Redirect after successful submission
-        } else if (response.status === 400) {
+        } else if (response.status === 500) {
             const errorResponse = await response.json();
             // console.error('Error:', errorResponse.error);
             alert(errorResponse.error || 'Something went wrong');
