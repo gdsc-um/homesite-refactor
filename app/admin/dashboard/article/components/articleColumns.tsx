@@ -56,7 +56,7 @@ export const columns: ColumnDef<Article>[] = [
       const article = row.original;
 
       // Handle empty or invalid `banner` values
-      const imageSrc = article.banner || "/placeholder-image.png";
+      const imageSrc = `https://drive.google.com/uc?id=${article.banner}` || "/placeholder-image.png";
 
       return (
         <div className="py-4">

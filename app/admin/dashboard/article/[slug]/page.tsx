@@ -28,11 +28,13 @@ export default async function Page({ params }: PageProps) {
         <h3 className="text-3xl font-semibold">{existingArticle.title}</h3>
         <p className="text-slate-500 text-sm">By: {existingArticle.author}</p>
         {existingArticle.banner && (
+          // https://drive.google.com/file/d/1T2A6rV-IejAqrVZpAMpeL9PjP_RZG-1L
           <Image
-            src={existingArticle.banner}
+            src={`https://drive.google.com/uc?id=${existingArticle.banner}`}
+            // src={`https://drive.google.com/uc?id=1T2A6rV-IejAqrVZpAMpeL9PjP_RZG-1L`}
             alt={existingArticle.title}
-            width={300}
-            height={200}
+            width={600}
+            height={300}
             className="rounded-md shadow-md"
           />
         )}
