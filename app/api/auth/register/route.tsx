@@ -33,9 +33,12 @@ export async function POST(req: NextRequest) {
         }
 
         // Find the user
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: {
-                email: email
+            OR: [
+                { email: email },
+                { nim: nim }
+            ]
             }
         })
 
@@ -51,7 +54,6 @@ export async function POST(req: NextRequest) {
                 nim: nim,
                 email: email,
                 password: hashedPassword,
-                avatar: "", // Add a default value for the avatar
             }
         })
 
