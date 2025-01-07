@@ -1,19 +1,24 @@
 import { notFound } from 'next/navigation';
-import { ARTICLES } from '../data/articles';
+import { PrismaClient } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 
+const prisma = new PrismaClient();
+
 interface PageProps {
-  params: Promise<{ id: string }>; // Define params as a Promise type
+  params: { slug: string };
 }
 
 export default async function Page({ params }: PageProps) {
-  const { id } = await params; // Await the resolution of params
+  const { slug } = params;
 
-  // Simulate async fetching of articles (e.g., replace with an actual API call)
-  const existingArticle = ARTICLES.find(article => article.id === id);
+  // Fetch artikel dari database
+  const existingArticle = await prisma.article.findUnique({
+    where: { slug },
+  });
+
   if (!existingArticle) return notFound();
 
   return (
@@ -22,9 +27,9 @@ export default async function Page({ params }: PageProps) {
       <div className="flex flex-col items-center text-center gap-4">
         <h3 className="text-3xl font-semibold">{existingArticle.title}</h3>
         <p className="text-slate-500 text-sm">By: {existingArticle.author}</p>
-        {existingArticle.image && (
+        {existingArticle.banner && (
           <Image
-            src={existingArticle.image}
+            src={existingArticle.banner}
             alt={existingArticle.title}
             width={300}
             height={200}
@@ -32,7 +37,7 @@ export default async function Page({ params }: PageProps) {
           />
         )}
         <Badge variant="outline" className="text-sm">
-          {new Date(existingArticle.date).toLocaleDateString('en-US', {
+          {new Date(existingArticle.createdAt).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

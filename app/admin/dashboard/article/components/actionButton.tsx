@@ -32,12 +32,12 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
 
     const handleSeeDetailClick = () => {
-        const url = `article/${data.id}`;
+        const url = `article/${data.slug}`;
         router.push(url);
     }
 
     const handleEditClick = () => {
-        const url = `article/${data.id}/edit`;
+        const url = `article/${data.slug}/edit`;
         router.push(url);
     }
 
