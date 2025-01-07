@@ -2,7 +2,7 @@
 
 import { CircleAlert, Eye, Pencil, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 
 import {
     Dialog,
@@ -23,30 +23,39 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { Question, Quiz } from '../lib/definition';
+import { QuizWithAuthor } from '../lib/definition';
+import { Questions } from '@prisma/client';
 
 interface ActionButtonProps {
-    data: Question | Quiz,
+    data: Questions | QuizWithAuthor,
     type: "QUIZ" | "QUESTION",
 }
 
 const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
+    const dialogCloseRef = useRef<HTMLButtonElement>(null);
     const router = useRouter();
 
     const handleSeeDetailClick = () => {
         let url = `quiz/${data.id}`;
-        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/questions/${data.id}`;
         router.push(url);
     }
 
     const handleEditClick = () => {
         let url = `quiz/${data.id}/edit`;
-        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/${data.id}/edit`;
+        if (type === "QUESTION" && "quizId" in data) url = `${data.quizId}/questions/${data.id}/edit`;
         router.push(url);
     }
 
     const handleDeleteClick = () => {
-        // Pass
+        let url = `/api/quizzes/${data.id}`;
+        if (type === "QUESTION" && "quizId" in data) url = `/api/quizzes/${data.quizId}/questions/${data.id}`;
+        fetch(url, {
+            method: 'DELETE'
+        }).then((response) => response.json()).then(() => {
+            dialogCloseRef.current?.click();
+            router.refresh();
+        });
     }
 
     return (
@@ -78,7 +87,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <DialogTrigger asChild>
-                                <button onClick={handleDeleteClick}>
+                                <button>
                                     <Trash color='#ef4444' size={15} />
                                 </button>
                             </DialogTrigger>
@@ -99,10 +108,10 @@ const ActionButton: FC<ActionButtonProps> = ({ data, type }) => {
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
-                        <DialogClose asChild>
+                            <DialogClose ref={dialogCloseRef} asChild>
                             <Button variant={'ghost'}>Cancel</Button>
                         </DialogClose>
-                        <Button variant={'destructive'}>Yes, delete it.</Button>
+                            <Button onClick={handleDeleteClick} type='submit' variant={'destructive'}>Yes, delete it.</Button>
                     </DialogFooter>
                 </DialogContent>
                 </Dialog>

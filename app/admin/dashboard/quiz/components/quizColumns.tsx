@@ -2,10 +2,10 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import ActionButton from "./actionButton"
-import { Quiz } from "../lib/definition"
+import { QuizWithAuthor } from "../lib/definition"
 
 
-export const columns: ColumnDef<Quiz>[] = [
+export const columns: ColumnDef<QuizWithAuthor>[] = [
     {
         id: "count",
         header: "#",
@@ -24,12 +24,22 @@ export const columns: ColumnDef<Quiz>[] = [
         }
     },
     {
+        accessorKey: "content",
+        header: "Content",
+        cell: ({ row }) => {
+            const quiz = row.original;
+            return <div className="py-4 max-w-[10rem]">
+                <p className="line-clamp-3">{quiz.content}</p>
+            </div>
+        }
+    },
+    {
         accessorKey: "author",
         header: "Author",
         cell: ({ row }) => {
             const quiz = row.original;
             return <div className="py-4">
-                {quiz.author}
+                {quiz.author.name}
             </div>
         }
     },
@@ -39,7 +49,8 @@ export const columns: ColumnDef<Quiz>[] = [
             return <p className="text-center">Total Question</p>
         },
         cell: ({ row }) => {
-            return <div className="py-4 text-center">4</div>
+            const quiz = row.original;
+            return <div className="py-4 text-center">{quiz.questions?.length}</div>
         }
     },
     {

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import React, { FC } from 'react'
 
 interface AddQuestionProps {
-    quizId: string
+    quizId: string | string[] | undefined
 }
 
 const AddQuestionButton: FC<AddQuestionProps> = ({ quizId }) => {

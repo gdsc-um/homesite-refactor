@@ -2,14 +2,35 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { columns } from "./components/quizColumns";
-import { QUIZZES } from "./data/quizzes";
+import { Quiz, User } from "@prisma/client";
+import { QuizWithAuthor } from "./lib/definition";
+
+
 
 const QuizPage: FC = () => {
+    const [searchInput, setSearchInput] = useState<string>("");
+    const [quizzes, setQuizzes] = useState<QuizWithAuthor[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchQuizzes = async () => {
+            let url = `/api/quizzes`;
+            if (searchInput) url += `?search=${searchInput}`
+            const response = await fetch(url);
+            const data = await response.json();
+            setQuizzes(data.data);
+            setIsLoading(false);
+        }
+        // Implement debounce for reducing the frequency of API calls while typing in the search input
+        const timer = setTimeout(fetchQuizzes, 500);
+
+        return () => clearTimeout(timer);
+    }, [searchInput]);
 
     return (
         <div className="px-6 max-w-[80rem] mx-auto">
@@ -18,12 +39,13 @@ const QuizPage: FC = () => {
                 <div className="grid grid-cols-2">
                     <Button onClick={() => router.push(`quiz/create`)} className="w-[5rem] sm:w-[10rem]">Add</Button>
                     <div className="flex justify-end">
-                        <Input className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
+                        <Input value={searchInput} onChange={({ target }) => setSearchInput(target.value)} className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
                     </div>
                 </div>
             </header>
 
-            <DataTable columns={columns} data={QUIZZES} />
+            {!isLoading && <DataTable columns={columns} data={quizzes} />}
+            {isLoading && <h4 className="text-center animate-pulse text-lg mt-10">Loading...</h4>}
         </div>
     )
 }

@@ -20,6 +20,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum QuizType {
+  WEB
+  MOBILE
+  ML
+  UIUX
+  OTHER
+}
+
 model User {
   id        String   @id @default(uuid())
   nim      String
@@ -53,6 +61,7 @@ model Quiz {
   image     String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+  quizType  QuizType
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   questions Questions[]
@@ -63,7 +72,7 @@ model Questions {
   id        String   @id @default(uuid())
   question  String
   answer    String
-  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   quizId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
