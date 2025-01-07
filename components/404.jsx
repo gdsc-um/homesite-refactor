@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="w-full py-24 flex flex-col justify-center items-center px-5 bg-white space-y-4">
       <Head>
-        <title>Halaman tidak tersedia | GDSC Universitas Negeri Malang</title>
+        <title>Halaman tidak tersedia | GDGoC Universitas Negeri Malang</title>
         <meta name="description" content="Halaman tidak tersedia" />
       </Head>
       <Image src={ImageNotFound} alt="Maitenance" className="" />
