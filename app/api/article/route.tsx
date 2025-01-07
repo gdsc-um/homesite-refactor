@@ -10,3 +10,24 @@ export async function GET() {
         return NextResponse.json({ error: 'Failed to fetch articles' }, { status: 500 });
     }
 }
+
+export async function POST(req: Request) {
+    const { title, slug, author, date, content, image } = await req.json(); // Ganti banner ke image
+    
+    try {
+        const newArticle = await prisma.article.create({
+            data: {
+                title,
+                slug,
+                author,
+                date: new Date(date),
+                content,
+                banner: image, // Jika kolom di database bernama banner, Anda bisa menyesuaikan
+            },
+        });
+
+        return NextResponse.json(newArticle, { status: 201 });
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to add article' }, { status: 400 });
+    }
+}

@@ -48,6 +48,7 @@ model Article {
   content   String   @db.Text
   banner    String?
   author    String
+  date      DateTime?
   slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
