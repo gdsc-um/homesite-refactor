@@ -37,7 +37,7 @@ export default function QuizPage() {
         throw new Error("Invalid response");
       }
     } catch (err: any) {
-      console.error(err);
+      console.log(err);
       toast.error("Failed to load quizzes.");  // Show error toast
     } finally {
       setLoading(false);
@@ -72,6 +72,13 @@ export default function QuizPage() {
           >
             Cari
           </button>
+
+          <button
+            onClick={() => window.location.href = "quiz/history"}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            History
+            </button>
         </div>
 
         {/* Loader */}
