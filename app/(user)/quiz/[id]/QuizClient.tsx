@@ -2,25 +2,27 @@
 
 import React from 'react';
 
-interface Answer {
+interface Option {
   answer: string;
   isCorrect: boolean;
 }
 
 interface Question {
+  id: string;
   question: string;
-  options: Answer[];
+  answer: {
+    options: Option[];
+  };
 }
 
-interface QuizData {
-  metadata: {
-    title: string;
-  };
+interface Quiz {
+  id: string;
+  title: string;
   questions: Question[];
 }
 
 interface QuizClientProps {
-  quizData: QuizData;
+  quizData: Quiz;
 }
 
 const QuizClient: React.FC<QuizClientProps> = ({ quizData }) => {
@@ -29,18 +31,42 @@ const QuizClient: React.FC<QuizClientProps> = ({ quizData }) => {
   const [showScore, setShowScore] = React.useState<boolean>(false);
   const [startTime, setStartTime] = React.useState<Date | null>(null);
 
+  // Start timer when quiz is initiated
   React.useEffect(() => {
     if (!startTime) {
       setStartTime(new Date());
     }
   }, [startTime]);
 
-  const handleQuestion = (answer: Answer) => {
-    const correct = answer.isCorrect;
+  // Log quiz result after completion
+  const logResult = async () => {
+    const result = {
+      quizId: quizData.id, // Using quiz ID from the provided structure
+      score: score,
+      timeTaken: new Date().getTime() - startTime!.getTime(),
+      timestamp: new Date(),
+    };
+
+    // Log the result via API call or just console log for now
+    await fetch('/api/user/quiz-result', {
+      method: 'POST',
+      body: JSON.stringify(result),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log('Quiz Result:', result);
+  };
+
+  // Handle question answer selection
+  const handleQuestion = (selectedOption: Option) => {
+    const correct = selectedOption.isCorrect;
     setScore(prevScore => (correct ? prevScore + 1 : prevScore));
 
     if (currentQuestion + 1 === quizData.questions.length) {
       setShowScore(true);
+      logResult(); // Log result when quiz ends
     } else {
       setCurrentQuestion(prev => prev + 1);
     }
@@ -67,11 +93,11 @@ const QuizClient: React.FC<QuizClientProps> = ({ quizData }) => {
         </div>
       ) : (
         <div className="w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
-          <h1 className="text-2xl font-semibold text-center mb-6">{quizData.metadata.title}</h1>
+          <h1 className="text-2xl font-semibold text-center mb-6">{quizData.title}</h1>
           <div className="mb-6">
             <h2 className="text-lg font-medium text-gray-800">{quizData.questions[currentQuestion].question}</h2>
             <div className="mt-4 space-y-3">
-              {quizData.questions[currentQuestion].options.map((option, index) => (
+              {quizData.questions[currentQuestion].answer.options.map((option, index) => (
                 <button
                   key={index}
                   onClick={() => handleQuestion(option)}
