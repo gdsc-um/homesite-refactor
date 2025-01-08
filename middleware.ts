@@ -1,88 +1,63 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const PUBLIC_PATHS = new Set(["/", "/auth/login", "/auth/register", "/profile", "/team", "/quiz", "/blog"]);
+// Route access rules
+// Role: SUPERADMIN > ADMIN > null (default for all authenticated users)
+const ROUTE_RULES: Record<string, { roles: string[] | null }> = {
+	"/admin": { roles: ["ADMIN", "SUPERADMIN"] },
+	"/admin/manage-user": { roles: ["SUPERADMIN"] },
+	"/quiz": { roles: null }, 
+};
 
+// Middleware function
 export async function middleware(request: NextRequest) {
-	const token = await getToken({ req: request, secret: process.env.SECRET }) as { role?: string } | null;
+	const token = (await getToken({
+		req: request,
+		secret: process.env.SECRET,
+	})) as { role?: string } | null;
 
 	const { pathname } = new URL(request.url);
 
-	if (PUBLIC_PATHS.has(pathname) || isPublicPath(pathname)) {
-		return NextResponse.next();
-	}
-
-	if (!token) {
-		return NextResponse.redirect(new URL("/auth/login", request.url));
-	}
-
-	const userRole = token.role;
-
-	// Handle role-based access for admin routes
-	if (pathname.startsWith("/admin")) {
-		if (pathname.startsWith("/admin/manage-user")) {
-			return handleAdminAccess(userRole, ["SUPERADMIN"], request);
+	// Match the route with access rules
+	for (const [route, { roles }] of Object.entries(ROUTE_RULES)) {
+		if (pathname.startsWith(route)) {
+			if (!token) {
+				return redirectToLogin(request);
+			}
+			if (roles && !roles.includes(token.role || "")) {
+				return redirectToSafeUrl(request);
+			}
+			return NextResponse.next();
 		}
-		return handleAdminAccess(userRole, ["ADMIN", "SUPERADMIN"], request);
-	}
-
-	// Allow access to authenticated users for other routes
-	return NextResponse.next();
-}
-
-/**
- * Determines if a path is a public path (with nested subpaths allowed).
- * @param pathname - Pathname to check.
- */
-function isPublicPath(pathname: string): boolean {
-	return [...PUBLIC_PATHS].some(
-		(path) => pathname === path || pathname.startsWith(`${path}/`)
-	);
-}
-
-/**
- * Handles role-based access control for admin routes.
- * Redirects users who lack appropriate roles.
- * @param userRole - The role of the current user.
- * @param allowedRoles - Roles allowed to access the route.
- * @param request - The incoming request.
- */
-function handleAdminAccess(
-	userRole: string | undefined | null,
-	allowedRoles: string[],
-	request: Request
-) {
-	if (!allowedRoles.includes(userRole || "")) {
-		const redirectPath = getSafeRedirectUrl(request);
-		return NextResponse.redirect(new URL(redirectPath, request.url));
 	}
 	return NextResponse.next();
 }
 
 /**
- * Retrieves a safe redirect URL based on the referer.
- * Ensures the referer is from the same origin to prevent open redirects.
+ * Redirects the user to the login page.
  * @param request - The incoming request.
  */
-function getSafeRedirectUrl(request: Request): string {
+function redirectToLogin(request: NextRequest): NextResponse {
+	return NextResponse.redirect(new URL("/auth/login", request.url));
+}
+
+/**
+ * Redirects the user to a safe fallback URL based on referer or root path.
+ * @param request - The incoming request.
+ */
+function redirectToSafeUrl(request: NextRequest): NextResponse {
 	const referer = request.headers.get("referer");
 	if (referer) {
 		try {
 			const refererUrl = new URL(referer);
 			if (refererUrl.origin === new URL(request.url).origin) {
-				return refererUrl.pathname + refererUrl.search;
+				return NextResponse.redirect(
+					new URL(refererUrl.pathname, request.url)
+				);
 			}
 		} catch {
-			// Invalid URL in referer; fallback
+			// Invalid referer URL; fallback
 		}
 	}
-	// Default fallback
-	return "/";
+	return NextResponse.redirect(new URL("/", request.url));
 }
-
-export const config = {
-	matcher: [
-		// Match all routes except those in the public folder, API, static files, and auth paths
-		"/((?!api|_next/static|_next/image|favicon.ico|auth).*)",
-	],
-};
