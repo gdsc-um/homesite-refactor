@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const PUBLIC_PATHS = new Set(["/", "/auth/login", "/auth/register"]);
+const PUBLIC_PATHS = new Set(["/", "/auth/login", "/auth/register", "/quiz"]);
 
 export async function middleware(request: NextRequest) {
 	const token = await getToken({ req: request, secret: process.env.SECRET }) as { role?: string } | null;
