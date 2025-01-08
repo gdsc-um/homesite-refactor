@@ -51,3 +51,19 @@ export async function PUT(req: Request, { params }: { params: { slug: string } }
     }
 }
 
+
+// Handler untuk metode DELETE
+export async function DELETE(req: Request, { params }: { params: { slug: string } }) {
+    const { slug } = params;
+
+    try {
+        // Hapus artikel berdasarkan slug
+        const deletedArticle = await prisma.article.delete({
+            where: { slug },
+        });
+        return NextResponse.json({ message: 'Article deleted successfully', article: deletedArticle });
+        
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to delete article' }, { status: 400 });
+    }
+}
