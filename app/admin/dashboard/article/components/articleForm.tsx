@@ -28,7 +28,7 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-    
+
         if (name === 'slug') {
             // Ganti spasi dengan dash (-)
             setFormData((prevData) => ({
@@ -47,8 +47,11 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
     
-        const response = await fetch('/api/article', {
-            method: 'POST',
+        const method = type === 'EDIT' ? 'PUT' : 'POST';
+        const url = type === 'EDIT' ? `/api/article/${formData.slug}` : '/api/article';
+    
+        const response = await fetch(url, {
+            method,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -56,20 +59,20 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
         });
     
         if (response.ok) {
-            toast.success('Article added successfully!');
+            toast.success(type === 'EDIT' ? 'Article updated successfully!' : 'Article added successfully!');
             router.push('/admin/dashboard/article');
         } else {
             const errorResponse = await response.json();
             if (response.status === 400 && errorResponse.error === 'Slug already exists') {
                 toast.error('Slug already exists. Please choose a different one.');
             } else {
+                // toast.error('Sek Error');
+                // console.log(errorResponse);
                 toast.error('Something went wrong');
             }
         }
     };
     
-    
-
     return (
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="space-y-1 md:space-y-2">
@@ -84,7 +87,7 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
                 />
             </div>
             <div className="space-y-1 md:space-y-2">
-                <Label className="text-lg" htmlFor="slug">Title Link</Label>
+                <Label className="text-lg" htmlFor="slug">Slug (Title Link)</Label>
                 <Input
                     type="text"
                     value={formData.slug}
@@ -94,6 +97,7 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
                     placeholder="max 60 characters"
                     required
                     maxLength={60}
+                    readOnly={type === "EDIT"}
                 />
             </div>
 
@@ -136,8 +140,8 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
                 <Label className="text-lg" htmlFor="image">Image</Label>
                 <Input
                     type="url"
-                    value={"banner.jpg"}
-                    name="image"
+                    value={"banner.jpg"} // Anda bisa mengganti ini jika membutuhkan input gambar dinamis
+                    name="banner"
                     id="image"
                     onChange={handleInputChange}
                     placeholder="banner.jpg"

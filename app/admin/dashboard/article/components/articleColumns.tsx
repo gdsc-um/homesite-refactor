@@ -37,7 +37,7 @@ export const columns: ColumnDef<Article>[] = [
     cell: ({ row }) => {
       const article = row.original;
       // Format the date if needed
-      const formattedDate = new Date(article.createdAt).toLocaleDateString();
+      const formattedDate = new Date(article.date).toLocaleDateString();
       return <div className="py-4">{formattedDate}</div>;
     },
   },
