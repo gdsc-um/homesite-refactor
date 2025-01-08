@@ -2,8 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 // Handler untuk metode GET
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   try {
     const article = await prisma.article.findUnique({
@@ -29,8 +29,8 @@ export async function GET(request: Request, { params }: { params: { slug: string
 
 
 
-export async function PUT(req: Request, { params }: { params: { slug: string } }) {
-    const { slug } = params;
+export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
     const { title, author, date, content, banner } = await req.json();
     // const newFormDateYYYYMMDD = new Date(date).toISOString().split('T')[0];
     // console.log( title, author, date, content, banner);
@@ -53,8 +53,8 @@ export async function PUT(req: Request, { params }: { params: { slug: string } }
 
 
 // Handler untuk metode DELETE
-export async function DELETE(req: Request, { params }: { params: { slug: string } }) {
-    const { slug } = params;
+export async function DELETE(req: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
     try {
         // Hapus artikel berdasarkan slug
