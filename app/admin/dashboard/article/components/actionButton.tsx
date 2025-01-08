@@ -2,7 +2,7 @@
 
 import { CircleAlert, Eye, Pencil, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import {
     Dialog,
@@ -23,6 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { Article } from '../lib/definition';
+import { toast } from 'react-hot-toast';
 
 interface ActionButtonProps {
     data: Article;
@@ -30,19 +31,37 @@ interface ActionButtonProps {
 
 const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
+    const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
 
     const handleSeeDetailClick = () => {
-        const url = `article/${data.id}`;
+        const url = `article/${data.slug}`;
         router.push(url);
     }
 
     const handleEditClick = () => {
-        const url = `article/${data.id}/edit`;
+        const url = `article/${data.slug}/edit`;
         router.push(url);
     }
 
-    const handleDeleteClick = () => {
-        // Pass
+    const handleDeleteClick = async () => {
+        const response = await fetch(`/api/article/${data.slug}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            // Tindakan setelah artikel berhasil dihapus
+            toast.success('Article deleted successfully');
+            router.refresh();
+            router.push('/admin/dashboard');
+            // auto refresh
+        } else {
+            toast.error('Failed to delete article');
+        }
+    }
+
+    const handleDialogOpen = () => {
+        // Menandai bahwa pengguna telah memilih untuk menghapus artikel
+        setIsDeleteConfirmed(true);
     }
 
     return (
@@ -74,7 +93,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <DialogTrigger asChild>
-                                <button onClick={handleDeleteClick}>
+                                <button onClick={handleDialogOpen}>
                                     <Trash color='#ef4444' size={15} />
                                 </button>
                             </DialogTrigger>
@@ -83,6 +102,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                             <p>Delete</p>
                         </TooltipContent>
                     </Tooltip>
+
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle className='flex items-center gap-2 mb-2'>
@@ -98,7 +118,12 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                             <DialogClose asChild>
                                 <Button variant={'ghost'}>Cancel</Button>
                             </DialogClose>
-                            <Button variant={'destructive'}>Yes, delete it.</Button>
+                            <Button
+                                onClick={handleDeleteClick}
+                                variant={'destructive'}
+                            >
+                                Yes, delete it.
+                            </Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
