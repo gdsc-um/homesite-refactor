@@ -1,4 +1,5 @@
 // app/page.tsx
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import HeroImage from "@/assets/gdg-global.png";
@@ -7,59 +8,48 @@ import mlai from "@/assets/ml-ai.png";
 import mobiledev from "@/assets/mobile-dev.png";
 import webdev from "@/assets/web-dev.png";
 import uiux from "@/assets/ui-ux.png";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 
 // Article Card Component
-const ArticleCard = ({ slug, frontmatter }: { slug: string; frontmatter: { title: string; date: string; description: string; image: string } }) => (
-  <Link href={`/blog/${slug}`} className="group bg-white rounded-xl shadow-md p-5 hover:shadow-xl transition-all duration-200 ease-in-out">
-    <Image
-      className="w-full h-48 object-cover rounded-lg mb-4"
-      src={frontmatter.image}
-      alt={frontmatter.title}
-      width={400}
-      height={300}
-    />
+// Article Card Component
+const ArticleCard = ({ slug, frontmatter }: { slug: string; frontmatter: { title: string; author: string; content: string; date: string; } }) => (
+  <Link href={`/blog/${slug}`} className="group bg-white rounded-xl shadow-md p-10 hover:shadow-xl transition-all duration-200 ease-in-out">
     <h3 className="font-semibold text-lg text-black">{frontmatter.title}</h3>
-    <p className="text-sm text-gray-500 mb-2">{frontmatter.date}</p>
-    <p className="text-sm text-gray-700 mb-4">{frontmatter.description}</p>
+    <p className="text-sm text-gray-500 mb-2">Author: {frontmatter.author}</p>
+    <p className="text-sm text-gray-700 mb-4">{frontmatter.content}</p>
     <div className="text-blue-600 hover:underline text-sm font-semibold">
       Baca Selengkapnya
     </div>
   </Link>
 );
 
+
 // Main page component
-export default async function Home() {
-  // Dummy posts data
-  const dummyPosts = [
-    {
-      slug: "artikel-1",
-      frontmatter: {
-        title: "Mengenal Teknologi Web3",
-        date: "2024-12-10",
-        description: "Web3 adalah revolusi internet dengan teknologi blockchain yang dapat mengubah cara kita berinteraksi di dunia digital.",
-        image: "https://via.placeholder.com/400x300?text=Web3+Article",
-      },
-    },
-    {
-      slug: "artikel-2",
-      frontmatter: {
-        title: "Apa Itu Machine Learning?",
-        date: "2024-12-05",
-        description: "Machine Learning (ML) memungkinkan sistem untuk belajar dari data dan membuat prediksi tanpa diprogram secara eksplisit.",
-        image: "https://via.placeholder.com/400x300?text=Machine+Learning+Article",
-      },
-    },
-    {
-      slug: "artikel-3",
-      frontmatter: {
-        title: "Keuntungan Pengembangan Aplikasi Mobile",
-        date: "2024-11-30",
-        description: "Pengembangan aplikasi mobile memberikan peluang besar di pasar perangkat seluler yang terus berkembang.",
-        image: "https://via.placeholder.com/400x300?text=Mobile+Development+Article",
-      },
-    },
-  ];
+export default function Home() {
+  const [articles, setArticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch('/api/article');
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data); // Debugging: periksa struktur data yang diterima
+    
+          // Pastikan artikel memiliki frontmatter dengan title dan date
+          setArticles(data.slice(0, 3)); 
+        } else {
+          console.error("Failed to fetch articles.");
+        }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
+    
+
+    fetchArticles();
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-white">
@@ -156,16 +146,24 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Artikel Terbaru */}
+        {/* Artikel Terbaru */}
       <div className="bg-[#E3F2FD] py-12">
         <div className="w-full mx-auto container px-5 lg:px-16 flex flex-col justify-center items-center">
           <h2 className="font-bold text-3xl lg:text-5xl lg:px-0 px-5 py-4 text-black text-center">
             Artikel Terbaru
           </h2>
           <div className="grid lg:grid-cols-3 gap-3 mt-8">
-            {dummyPosts.map(({ slug, frontmatter }) => (
-              <ArticleCard slug={slug} frontmatter={frontmatter} key={slug} />
-            ))}
+            {articles.length > 0 ? (
+              articles.map(({ slug, title, author, content, date }: any) => (
+                <ArticleCard 
+                  slug={slug} 
+                  frontmatter={{ title, author, content, date }} 
+                  key={slug} 
+                />
+              ))
+            ) : (
+              <p className="text-center ">Tidak ada artikel terbaru.</p>
+            )}
           </div>
         </div>
       </div>
