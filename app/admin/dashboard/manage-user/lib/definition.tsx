@@ -14,5 +14,6 @@ export interface Userssss {
     avatar: string;
     profil_bevy: string;
     createdAt: Date;
+    role_tim: string;
     updatedAt: Date;
 }

@@ -1,25 +1,30 @@
-import fs from "fs";
-import path from "path";
+"use client";
+
 import CardName from "@/components/CardName";
 import Head from "next/head";
+import { Userssss } from "@/app/admin/dashboard/manage-user/lib/definition";
+import { useState, useEffect } from "react";
 
-export interface CoreTeamMember {
-  nim: string;
-  name: string;
-  role: string;
-  picture: string;
-  profile_url: string;
-}
+export default function Team() {
+  const [users, getUsers] = useState<Userssss[]>([]);
 
-export interface CoreTeam {
-  coreteam: CoreTeamMember[];
-}
-
-export default async function Team() {
-  // Read JSON data
-  const filePath = path.join(process.cwd(), "data", "coreteam.json");
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  const { coreteam } = JSON.parse(fileContent);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/user');
+        if (response.ok) {
+          const data: Userssss[] = await response.json();
+          getUsers(data);
+          console.log(data);
+        } else {
+          console.error("Failed to fetch users.");
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-white">
@@ -32,15 +37,19 @@ export default async function Team() {
           Ini adalah tim kami
         </h1>
         <div className="grid lg:grid-cols-4 gap-5 mt-8">
-          {coreteam.map((member: CoreTeamMember) => (
-            <CardName
-              key={member.nim}
-              name={member.name}
-              role={member.role}
-              picture={member.picture}
-              profile_url={member.profile_url}
-            />
-          ))}
+          {users.length === 0 ? (
+            <p className="text-gray-500">No team members found.</p>
+          ) : (
+            users.map((user) => (
+              <CardName
+                key={user.nim}
+                name={user.name}
+                roleTim={user.role_tim}
+                picture={user.avatar}
+                profile_url={user.profil_bevy} // Pastikan data ini ada di API
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
