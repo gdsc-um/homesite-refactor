@@ -148,7 +148,7 @@ const ArticleForm: FC<UserFormProps> = ({ article, type }) => {
             <div className="flex justify-end gap-4 mt-4 lg:mt-10">
                 <Button
                     type="button"
-                    onClick={handleSubmit}
+                    onClick={() => router.push('/admin/dashboard/article')}
                     variant="ghost"
                 >
                     {type === "EDIT" ? 'Cancel' : 'Back'}
