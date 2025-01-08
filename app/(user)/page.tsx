@@ -35,8 +35,15 @@ export default function Home() {
         const response = await fetch('/api/article');
         if (response.ok) {
           const data = await response.json();
-          console.log(data); // Debugging: periksa struktur data yang diterima
-    
+          // console.log(data); // Debugging: periksa struktur data yang diterima
+          // // Pastikan data memiliki artikel dengan properti yang benar
+          // const filteredData = data.filter((article: any) => article.frontmatter && article.frontmatter.date);
+
+          // // Urutkan artikel berdasarkan tanggal (terbaru ke lama)
+          // const sortedArticles = filteredData.sort((a: any, b: any) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+          // // Ambil hanya 3 artikel terbaru
+          // setArticles(sortedArticles.slice(0, 3));
           // Pastikan artikel memiliki frontmatter dengan title dan date
           setArticles(data.slice(0, 3)); 
         } else {
@@ -150,7 +157,7 @@ export default function Home() {
       <div className="bg-[#E3F2FD] py-12">
         <div className="w-full mx-auto container px-5 lg:px-16 flex flex-col justify-center items-center">
           <h2 className="font-bold text-3xl lg:text-5xl lg:px-0 px-5 py-4 text-black text-center">
-            Artikel Terbaru
+            Artikel Kami
           </h2>
           <div className="grid lg:grid-cols-3 gap-3 mt-8">
             {articles.length > 0 ? (
@@ -160,9 +167,10 @@ export default function Home() {
                   frontmatter={{ title, author, content, date }} 
                   key={slug} 
                 />
+                
               ))
             ) : (
-              <p className="text-center ">Tidak ada artikel terbaru.</p>
+              <p className="text-center ">Tidak ada artikel.</p>
             )}
           </div>
         </div>
