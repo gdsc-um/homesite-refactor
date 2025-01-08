@@ -24,15 +24,18 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
             <form className='flex flex-col gap-6'>
                 {/* add for profile picture */}
                 <div className='space-y-1 md:space-y-2'>
-                    <Label className='text-lg ' htmlFor='picture'>Profile Picture</Label>
+                    <Label className='text-lg ' htmlFor='picture'>Profile Picture </Label> <br />
+                    <small> use link cdn only </small>
                     <Input type='url' defaultValue={type === "ADD" ? '' : user?.picture} name='picture' id='picture' required />
                 </div>
                 <div className='space-y-1 md:space-y-2'>
-                    <Label className='text-lg ' htmlFor='name'>Name</Label>
+                    <Label className='text-lg ' htmlFor='name'>Name</Label> <br />
+                    <small> as listed on bevy </small>
                     <Input type='text' defaultValue={type === "ADD" ? '' : user?.name} name='name' id='name' required />
                 </div>
                 <div className='space-y-1 md:space-y-2'>
-                    <Label className='text-lg ' htmlFor='email'>Email</Label>
+                    <Label className='text-lg ' htmlFor='email'>Email</Label> <br />
+                    <small> as listed on bevy </small>
                     <Input type='email' defaultValue={type === "ADD" ? '' : user?.email} name='email' id='email' required />
                 </div>
                 <div className='space-y-1 md:space-y-2'>

@@ -2,10 +2,10 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import ActionButton from "./actionButton"
-import { User } from "../lib/definition"
+import { Userssss } from "../lib/definition";
 import Image from 'next/image' // Import Image from next/image
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Userssss>[] = [
     {
         id: "count",
         header: "#",
@@ -20,7 +20,7 @@ export const columns: ColumnDef<User>[] = [
             const user = row.original;
             return <div className="py-4">
                 <Image 
-                    src={user.picture} 
+                    src={user.avatar} 
                     alt="user" 
                     className="w-10 h-10 rounded-full" 
                     width={40} // Set width

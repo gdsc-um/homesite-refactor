@@ -22,10 +22,10 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { User } from '../lib/definition';
+import { Userssss } from '../lib/definition';
 
 interface ActionButtonProps {
-    data: User,
+    data: Userssss,
     type: "USER";
 }
 
@@ -33,8 +33,9 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
 
     const handleSeeDetailClick = () => {
-        if (data.profile_url) {
-            router.push(data.profile_url); 
+        console.log(data.profil_bevy);
+        if (data.profil_bevy) {
+            router.push(data.profil_bevy); 
         }
     }
 

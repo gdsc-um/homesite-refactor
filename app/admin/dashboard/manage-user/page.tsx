@@ -2,15 +2,47 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { columns } from "./components/userColumns";
 import { USERS } from "./data/users";
+import { User, Role} from "@prisma/client";
+import { Userssss } from "./lib/definition";
+// import { FC, , useState } from "react";
 
 
 const UserPage: FC = () => {
     const router = useRouter();
+    const [users, getUsers] = useState<Userssss[]>([]);
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch('/api/user');
+                if (response.ok) {
+                    const data: Userssss[] = await response.json();
+                    getUsers(data);
+                } else {
+                    console.error("Failed to fetch users.");
+                }
+                
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }finally{
+                setLoading(false);
+            }
+
+        }
+    
+        fetchUsers();
+    }, []);
+
+    if (loading) {
+        return <p>Loading user...</p>;
+    }
 
     return (
         <div className="px-6 max-w-[80rem] mx-auto">
@@ -24,7 +56,7 @@ const UserPage: FC = () => {
                 </div>
             </header>
 
-            <DataTable columns={columns} data={USERS} />
+            <DataTable columns={columns} data={users} />
         </div>
     )
 }
