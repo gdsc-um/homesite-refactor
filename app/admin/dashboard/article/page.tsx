@@ -8,12 +8,12 @@ import { Input } from "@/components/ui/input";
 import { columns } from "./components/articleColumns";
 import { Article } from "./lib/definition";
 
-
-
 const ArticlePage: FC = () => {
     const router = useRouter();
     const [articles, setArticles] = useState<Article[]>([]);
+    const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -22,6 +22,7 @@ const ArticlePage: FC = () => {
                 if (response.ok) {
                     const data: Article[] = await response.json();
                     setArticles(data.map(article => ({ ...article, image: article.image || "", banner: article.banner || "" })));
+                    setFilteredArticles(data); // Menyimpan data awal ke filteredArticles
                 } else {
                     console.error("Failed to fetch articles.");
                 }
@@ -35,6 +36,20 @@ const ArticlePage: FC = () => {
         fetchArticles();
     }, []);
 
+    // Filter artikel berdasarkan kata kunci pencarian
+    useEffect(() => {
+        if (searchQuery === "") {
+            setFilteredArticles(articles); // Jika tidak ada kata kunci pencarian, tampilkan semua artikel
+        } else {
+            setFilteredArticles(
+                articles.filter(article => 
+                    article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    article.slug.toLowerCase().includes(searchQuery.toLowerCase()) // Menambahkan pencarian berdasarkan slug atau judul
+                )
+            );
+        }
+    }, [searchQuery, articles]);
+
     if (isLoading) {
         return <p>Loading articles...</p>;
     }
@@ -46,12 +61,19 @@ const ArticlePage: FC = () => {
                 <div className="grid grid-cols-2">
                     <Button onClick={() => router.push(`article/create`)} className="w-[5rem] sm:w-[10rem]">Add</Button>
                     <div className="flex justify-end">
-                        <Input className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
+                        <Input 
+                            className="max-w-[15rem]" 
+                            type="text" 
+                            name="search" 
+                            placeholder="Search Title..." 
+                            value={searchQuery} 
+                            onChange={(e) => setSearchQuery(e.target.value)} // Mengubah state searchQuery saat input berubah
+                        />
                     </div>
                 </div>
             </header>
 
-            <DataTable columns={columns} data={articles} />
+            <DataTable columns={columns} data={filteredArticles} /> {/* Menampilkan filteredArticles */}
         </div>
     );
 };
