@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcrypt";
 
@@ -20,7 +20,7 @@ export async function DELETE(req: Request, { params }: { params: { email: string
 
 
 // GET user by email
-export async function GET(req: Request, { params }: { params: Promise<{ email: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ email: string }> }) {
     const { email } = await params;
   
     if (!email || typeof email !== "string") {
