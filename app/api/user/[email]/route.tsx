@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { hash } from "bcrypt";
 
 
 // delete user
@@ -44,24 +45,32 @@ export async function GET(req: Request, { params }: { params: { email: string } 
 
 // PUT update user
 export async function PUT(req: Request, { params }: { params: { email: string } }) {
-    const { email } = params;
-
-    if (!email || typeof email !== "string") {
-        return NextResponse.json({ error: "Invalid email" }, { status: 400 });
-    }
-
-    try {
+        const { email } = params;
         const body = await req.json();
         const { name, password, role, nim, avatar, profil_bevy, role_tim } = body;
-
+    
+        if (!email || typeof email !== "string") {
+        return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+        }
+    
+        try {
+        const dataToUpdate: any = { name, role, nim, avatar, profil_bevy, role_tim };
+    
+        if (password) {
+            dataToUpdate.password = await hash(password, 10); // Hash password sebelum menyimpan
+        }
+    
         const updatedUser = await prisma.user.update({
-        where: { email },
-        data: { name, password, role, nim, avatar, profil_bevy, role_tim },
+            where: { email },
+            data: dataToUpdate,
         });
-
+    
         return NextResponse.json(updatedUser);
-    } catch (error) {
+        } catch (error) {
         console.error("Error updating user:", error);
-        return NextResponse.json({ error: "Failed to update user", details: (error as Error).message }, { status: 500 });
-    }
+        return NextResponse.json(
+            { error: "Failed to update user", details: (error as Error).message },
+            { status: 500 }
+        );
+        }
 }

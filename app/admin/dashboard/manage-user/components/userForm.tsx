@@ -1,10 +1,9 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Userssss, UserRole, TimRole } from "../lib/definition";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
 import {
   Select,
   SelectContent,
@@ -24,48 +23,39 @@ interface UserFormProps {
 
 const UserForm: FC<UserFormProps> = ({ user, type }) => {
   const router = useRouter();
-
   const userRoles = Object.values(UserRole);
   const timRoles = Object.values(TimRole);
+  const [updatePassword, setUpdatePassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    const method = type === 'EDIT' ? 'PUT' : 'POST';
-    const url = type === 'EDIT' ? `/api/user/${user?.email}` : '/api/user';
-    console.log( type,data);
-    
+    if (!updatePassword) {
+      delete data.password; // Hapus password jika user memilih tidak mengupdate password
+    }
+    const method = type === "EDIT" ? "PUT" : "POST";
+    const url = type === "EDIT" ? `/api/user/${user?.email}` : "/api/user";
+
     try {
-        const response = await fetch(url,{
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-        // Handle status
-        if (response.ok) {
-            const updatedUser = await response.json();
-            toast.success('User updated successfully');
-            router.push('/admin/dashboard/manage-user');
-        }else{
-            const error = await response.json();
-            if (response.status === 400 && error.error === 'Slug already exists') {
-                toast.error('Slug already exists. Please choose a different one.');
-            } else {
-                // toast.error('Sek Error');
-                // console.log(errorResponse);
-                toast.error('Something went wrong');
-            }
-        }
-        } catch (error) {
-            toast.error('An error occurred while submitting the form');
-        }
-    };
-
+      if (response.ok) {
+        toast.success("User updated successfully");
+        router.push("/admin/dashboard/manage-user");
+      } else {
+        const error = await response.json();
+        toast.error(error.error || "Something went wrong");
+      }
+    } catch (error) {
+      toast.error("An error occurred while submitting the form");
+    }
+  };
   return (
     <>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -111,21 +101,32 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
             readOnly={type === "EDIT"}
           />
         </div>
+        {type === "EDIT" && (
         <div className="space-y-1 md:space-y-2">
-          <Label className="text-lg " htmlFor="email">
+          <Label>
+            <input
+              type="checkbox"
+              checked={updatePassword}
+              onChange={(e) => setUpdatePassword(e.target.checked)}
+            />
+            <p>Update Password</p>
+          </Label>
+        </div>
+      )}
+      {updatePassword && (
+        <div className="space-y-1 md:space-y-2">
+          <Label className="text-lg " htmlFor="password">
             Password
           </Label>
-          <br />
-            {type === "EDIT" ? <small> Leave blank to keep the same password </small> : <small> as listed on bevy </small>}
           <Input
             type="text"
-            defaultValue={type === "ADD" ? "" : user?.password}
+            defaultValue=""
             name="password"
             id="password"
             required
-            // readOnly={type === "EDIT"}
           />
         </div>
+      )}
         <div className="space-y-1 md:space-y-2">
           <Label className="text-lg " htmlFor="profil_bevy">
             Profile Bevy
