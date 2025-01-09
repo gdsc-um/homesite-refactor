@@ -10,11 +10,14 @@ interface Context {
 	}>;
 }
 
-const secretKey = "177b3b7f-4b97-4d0d-9b1f-1d1f0b1b0e7d";
 
 const encryptData = (data: any) => {
 	const stringifiedData = JSON.stringify(data);
-	return CryptoJS.AES.encrypt(stringifiedData, secretKey).toString();
+	const secret = process.env.NEXT_PUBLIC_QUIZ_SECRET;
+	if (!secret) {
+		throw new Error("QUIZ_SECRET is not defined");
+	}
+	return CryptoJS.AES.encrypt(stringifiedData, secret).toString();
 };
 
 export const GET = async (req: NextRequest, context: Context) => {
@@ -40,7 +43,6 @@ export const GET = async (req: NextRequest, context: Context) => {
 			);
 		}
 
-		// Parse the options stored in JSON format for each question
 		const questionsWithOptions = quiz.questions.map((question) => {
 			const answer = JSON.parse(question.answer);
 			return {
@@ -56,7 +58,6 @@ export const GET = async (req: NextRequest, context: Context) => {
 			questions: questionsWithOptions,
 		});
 
-		// Send the encrypted data to the frontend
 		return NextResponse.json({ data: encryptedQuizData });
 	} catch (error) {
 		console.error("Error fetching quiz data from Prisma:", error);

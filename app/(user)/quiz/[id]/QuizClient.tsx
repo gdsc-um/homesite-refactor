@@ -33,7 +33,6 @@ const QuizClient: React.FC<QuizClientProps> = ({ quizData }) => {
   const [startTime, setStartTime] = React.useState<Date | null>(null);
   const [endTime, setEndTime] = React.useState<Date | null>(null);
 
-  // Start timer when quiz is initiated
   React.useEffect(() => {
     if (!startTime) {
       setStartTime(new Date());
@@ -55,20 +54,14 @@ const QuizClient: React.FC<QuizClientProps> = ({ quizData }) => {
   };
 
   const saveResult = async (currentScore: number) => {
-    console.log("Saving result...");
-
     let adjustedScore = currentScore / quizData.questions.length;
     adjustedScore = Math.round(adjustedScore * 100);
-    console.log("Raw score:", currentScore);
-    console.log("Adjusted score:", adjustedScore);
-
     const result = {
       score: adjustedScore,
       timestamp: new Date(),
     };
 
     try {
-      console.log("Submitting quiz result...", quizData.id);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/quizzes/${quizData.id}/submit`, {
         method: "POST",
         body: JSON.stringify(result),

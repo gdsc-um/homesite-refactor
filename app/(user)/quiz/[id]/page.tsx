@@ -2,11 +2,14 @@
 import { useParams } from 'next/navigation';
 import React from 'react';
 import CryptoJS from 'crypto-js'; 
-const secretKey = '177b3b7f-4b97-4d0d-9b1f-1d1f0b1b0e7d';
 
 
 const decryptData = (encryptedData: string) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  const secret = process.env.NEXT_PUBLIC_QUIZ_SECRET;
+  if (!secret) {
+    throw new Error('QUIZ_SECRET is not defined');
+  }
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secret);
   const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
   return JSON.parse(decryptedData); 
 };
