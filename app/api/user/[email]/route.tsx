@@ -20,28 +20,31 @@ export async function DELETE(req: Request, { params }: { params: { email: string
 
 
 // GET user by email
-export async function GET(req: Request, { params }: { params: { email: string } }) {
-    const { email } = params;
-
+export async function GET(req: Request, { params }: { params: Promise<{ email: string }> }) {
+    const { email } = await params;
+  
     if (!email || typeof email !== "string") {
-        return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
-
+  
     try {
-        const user = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { email },
-        });
-
-        if (!user) {
+      });
+  
+      if (!user) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
-
-        return NextResponse.json(user);
+      }
+  
+      return NextResponse.json(user);
     } catch (error) {
-        console.error("Error fetching user:", error);
-        return NextResponse.json({ error: "Failed to fetch user", details: (error as Error).message }, { status: 500 });
+      console.error("Error fetching user:", error);
+      return NextResponse.json(
+        { error: "Failed to fetch user", details: (error as Error).message },
+        { status: 500 }
+      );
     }
-    }
+  }
 
 // PUT update user
 export async function PUT(req: Request, { params }: { params: { email: string } }) {
