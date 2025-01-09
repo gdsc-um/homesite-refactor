@@ -8,11 +8,11 @@ import Image from 'next/image';
 const prisma = new PrismaClient();
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>
 }
 
 export default async function Page({ params }: PageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   // Fetch artikel dari database
   const existingArticle = await prisma.article.findUnique({
