@@ -1,5 +1,6 @@
 "use client"; // tempoarary
 
+import { useSessionContext } from "@/app/context/sessionContext";
 import LogoGDSC from "@/assets/gdsc-logo-light.png";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -29,6 +30,9 @@ const NavLinks = [
 ];
 
 const Navbar = () => {
+    const { isLoading, session } = useSessionContext() 
+
+    const user = session?.user
   return (
     <header className="text-black body-font bg-white border-b-2">
       <div className="container mx-auto flex flex-wrap md:justify-between px-0 py-5 flex-col md:flex-row items-center gap-3">
@@ -54,11 +58,23 @@ const Navbar = () => {
           ))}
           {/* ! HELP */}
           {/* please make new component for this button */}
-          <button onClick={() => signOut({ redirect: false }).then(() => {
-                              window.location.href = "/auth/login";
-                            })} className="mr-0 text-black font-medium">
-            Logout
-          </button>
+            {user ? (
+            <button
+              onClick={() =>
+              signOut({ redirect: false }).then(() => {
+              window.location.href = "/auth/login";
+              })
+              }
+              className="mr-0 text-black font-medium"
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Logout"}
+            </button>
+            ) : (
+            <Link href="/auth/login" className="mr-0 text-black font-medium">
+              Login
+            </Link>
+            )}
         </nav>
       </div>
     </header>

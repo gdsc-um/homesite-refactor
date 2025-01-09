@@ -5,12 +5,14 @@ import ActionButton from "./actionButton";
 import { Article } from "../lib/definition";
 import Image from "next/image"; // Import Image from next/image
 
+
 export const columns: ColumnDef<Article>[] = [
   {
-    id: "count",
-    header: "#",
+    accessorKey: "id",
+    header: "ID",
     cell: ({ row }) => {
-      return <div className="py-4">{row.index + 1}.</div>;
+      const article = row.original;
+      return <div className="py-4">{row.index + 1}</div>;
     },
   },
   {
@@ -30,11 +32,13 @@ export const columns: ColumnDef<Article>[] = [
     },
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: "createdAt",
+    header: "Date Created",
     cell: ({ row }) => {
       const article = row.original;
-      return <div className="py-4">{article.date}</div>;
+      // Format the date if needed
+      const formattedDate = new Date(article.date).toLocaleDateString();
+      return <div className="py-4">{formattedDate}</div>;
     },
   },
   {
@@ -54,24 +58,28 @@ export const columns: ColumnDef<Article>[] = [
       );
     },
   },
-  {
-    accessorKey: "image",
-    header: "Image",
-    cell: ({ row }) => {
-      const article = row.original;
-      return (
-        <div className="py-4">
-          <Image
-            src={article.image}
-            alt="article"
-            width={40}  // Set fixed width
-            height={40} // Set fixed height
-            className="rounded-full" // Retain rounded shape
-          />
-        </div>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "banner",
+  //   header: "Banner",
+  //   cell: ({ row }) => {
+  //     const article = row.original;
+
+  //     // Handle empty or invalid `banner` values
+  //     const imageSrc = article.banner ? article.banner : "banner.png";
+
+  //     return (
+  //       <div className="py-4">
+  //         <img
+  //           src="/banner.png" // Use a placeholder image
+  //           alt="article banner"
+  //           width={60} // Set fixed width
+  //           height={60} // Set fixed height
+  //           className="rounded-full" // Retain rounded shape
+  //         />
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     id: "action",
     header: () => {
@@ -79,7 +87,7 @@ export const columns: ColumnDef<Article>[] = [
     },
     cell: ({ row }) => {
       const article = row.original;
-      return <ActionButton data={article} />;  // Just pass the `data` prop
+      return <ActionButton data={article} />;
     },
   },
 ];
