@@ -35,7 +35,8 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
     const data = Object.fromEntries(formData.entries());
     const method = type === 'EDIT' ? 'PUT' : 'POST';
     const url = type === 'EDIT' ? `/api/user/${user?.email}` : '/api/user';
-
+    console.log( type,data);
+    
     try {
         const response = await fetch(url,{
             method,
@@ -119,8 +120,8 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
           <Input
             type="text"
             defaultValue={type === "ADD" ? "" : user?.password}
-            name="text"
-            id="text"
+            name="password"
+            id="password"
             required
             // readOnly={type === "EDIT"}
           />
