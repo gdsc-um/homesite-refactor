@@ -31,7 +31,7 @@ export const GET = async (req: NextRequest) => {
 						isQuizType
 							? {
 									quizType: {
-										equals: normalizedSearchQuery as QuizType, // Exact match for enum
+										equals: normalizedSearchQuery as QuizType, 
 									},
 							  }
 							: {}, // Skip if not a valid enum
