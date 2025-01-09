@@ -47,8 +47,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ emai
   }
 
 // PUT update user
-export async function PUT(req: NextRequest, { params }: { params: { email: string } }) {
-        const { email } = params;
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ email: string }> }) {
+        const { email } = await params;
         const body = await req.json();
         const { name, password, role, nim, avatar, profil_bevy, role_tim } = body;
     
