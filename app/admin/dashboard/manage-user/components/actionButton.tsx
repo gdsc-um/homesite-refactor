@@ -23,6 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { Userssss } from '../lib/definition';
+import toast from 'react-hot-toast';
 
 interface ActionButtonProps {
     data: Userssss,
@@ -31,6 +32,7 @@ interface ActionButtonProps {
 
 const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
+    const [isDeleteConfirmed, setIsDeleteConfirmed] = React.useState(false);
 
     const handleSeeDetailClick = () => {
         console.log(data.profil_bevy);
@@ -44,8 +46,22 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
         router.push(url);
     }
 
-    const handleDeleteClick = () => {
-        // Pass
+    const handleDeleteClick = async () => {
+        const res = await fetch(`/api/user/${data.email}`, {
+            method: 'DELETE',
+        });
+
+        if (res.ok) {
+            toast.success('User deleted successfully');
+            router.refresh();
+            router.push('/admin/dashboard');
+        }else{
+            toast.error('Failed to delete user');
+        }
+    }
+
+    const handleDilogOpen = () => {
+        setIsDeleteConfirmed(true);
     }
 
     return (
@@ -76,7 +92,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <DialogTrigger asChild>
-                                <button onClick={handleDeleteClick}>
+                                <button onClick={handleDilogOpen}>
                                     <Trash color='#ef4444' size={15} />
                                 </button>
                             </DialogTrigger>
@@ -100,7 +116,9 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                         <DialogClose asChild>
                             <Button variant={'ghost'}>Cancel</Button>
                         </DialogClose>
-                        <Button variant={'destructive'}>Yes, delete it.</Button>
+                        <Button variant={'destructive'} onClick={handleDeleteClick}>
+                        Yes, delete it.
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
                 </Dialog>
