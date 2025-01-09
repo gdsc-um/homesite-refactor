@@ -60,6 +60,16 @@ export const columns: ColumnDef<Userssss>[] = [
         }
     },
     {
+        accessorKey: "role-tim",
+        header: "Role Tim",
+        cell: ({ row }) => {
+            const user = row.original;
+            return <div className="py-4">
+                {user.role_tim}
+            </div>
+        }
+    },
+    {
         id: "action",
         header: () => {
             return <p className="text-center">Action</p>

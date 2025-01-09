@@ -15,6 +15,7 @@ enum RoleTim {
   COM_ADV
   AFM
   CORETIM
+  MEMBER
 }
 
 generator client {
@@ -43,7 +44,7 @@ model User {
   email     String   @unique
   password  String
   profil_bevy String?
-  role_tim  RoleTim  @default(CORETIM)
+  role_tim  RoleTim  @default(MEMBER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   quizzes   Quiz[]

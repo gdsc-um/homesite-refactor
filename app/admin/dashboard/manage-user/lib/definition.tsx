@@ -9,6 +9,7 @@ export enum TimRole {
     LEAD = "LEAD",
     AFM = "AFM",
     COM_ADV = "COM_ADV",
+    MEMBER = "MEMBER"
 }
 
 
