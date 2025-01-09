@@ -1,25 +1,35 @@
-import fs from "fs";
-import path from "path";
+"use client";
+
 import CardName from "@/components/CardName";
 import Head from "next/head";
+import { Userssss } from "@/app/admin/dashboard/manage-user/lib/definition";
+import { useState, useEffect } from "react";
 
-export interface CoreTeamMember {
-  nim: string;
-  name: string;
-  role: string;
-  picture: string;
-  profile_url: string;
-}
+export default function Team() {
+  const [users, setUsers] = useState<Userssss[]>([]);
 
-export interface CoreTeam {
-  coreteam: CoreTeamMember[];
-}
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/user');
+        if (response.ok) {
+          const data: Userssss[] = await response.json();
+          setUsers(data);
+        } else {
+          console.error("Failed to fetch users.");
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
-export default async function Team() {
-  // Read JSON data
-  const filePath = path.join(process.cwd(), "data", "coreteam.json");
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  const { coreteam } = JSON.parse(fileContent);
+  // Urutkan anggota tim berdasarkan role_tim
+  const rolePriority = ["LEAD", "COM_ADV", "AFM", "CORETIM"];
+  const prioritizedUsers = users.filter(user => rolePriority.includes(user.role_tim))
+                                .sort((a, b) => rolePriority.indexOf(a.role_tim) - rolePriority.indexOf(b.role_tim));
+  const memberUsers = users.filter(user => user.role_tim === "MEMBER");
 
   return (
     <div className="w-full min-h-screen bg-white">
@@ -32,15 +42,39 @@ export default async function Team() {
           Ini adalah tim kami
         </h1>
         <div className="grid lg:grid-cols-4 gap-5 mt-8">
-          {coreteam.map((member: CoreTeamMember) => (
-            <CardName
-              key={member.nim}
-              name={member.name}
-              role={member.role}
-              picture={member.picture}
-              profile_url={member.profile_url}
-            />
-          ))}
+          {/* Tampilkan anggota prioritas */}
+          {prioritizedUsers.length === 0 ? (
+            <p className="text-gray-500">No team members found.</p>
+          ) : (
+            prioritizedUsers.map((user) => (
+              <CardName
+                key={user.nim}
+                name={user.name}
+                roleTim={user.role_tim}
+                picture={user.avatar}
+                profile_url={user.profil_bevy} // Pastikan data ini ada di API
+              />
+            ))
+          )}
+        </div>
+        <h2 className="text-2xl lg:text-4xl font-bold text-gray-700 mt-12">
+          Member
+        </h2>
+        <div className="grid lg:grid-cols-4 gap-5 mt-8">
+          {/* Tampilkan anggota member */}
+          {memberUsers.length === 0 ? (
+            <p className="text-gray-500">No members found.</p>
+          ) : (
+            memberUsers.map((user) => (
+              <CardName
+                key={user.nim}
+                name={user.name}
+                roleTim={user.role_tim}
+                picture={user.avatar}
+                profile_url={user.profil_bevy} 
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
