@@ -4,8 +4,8 @@ import { hash } from "bcrypt";
 
 
 // delete user
-export async function DELETE(req: Request, { params }: { params: { email: string } }) {
-    const { email } = params;
+export async function DELETE(req: Request, { params }: { params: Promise<{ email: string }> }) {
+    const { email } = await params;
 
     try {
         const deletedUser = await prisma.user.delete({
