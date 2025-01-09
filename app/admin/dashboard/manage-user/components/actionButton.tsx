@@ -42,7 +42,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     }
 
     const handleEditClick = () => {
-        const url = `manage-user/${data.id}/edit`; // Changed to const
+        const url = `manage-user/${data.email}/edit`; // Changed to const
         router.push(url);
     }
 

@@ -4,6 +4,13 @@ export enum UserRole {
     SUPERADMIN = "SUPERADMIN"
 }
 
+export enum TimRole {
+    CORETIM = "CORETIM",
+    LEAD = "LEAD",
+    AFM = "AFM",
+    COM_ADV = "COM_ADV",
+}
+
 
 export interface Userssss {
     id: string;
@@ -15,5 +22,6 @@ export interface Userssss {
     profil_bevy: string;
     createdAt: Date;
     role_tim: string;
+    password: string;
     updatedAt: Date;
 }
