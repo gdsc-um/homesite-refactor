@@ -1,15 +1,28 @@
 export enum UserRole {
-    ADMIN = "Admin",
-    USER = "User"
+    ADMIN = "ADMIN",
+    MEMBER = "MEMBER",
+    SUPERADMIN = "SUPERADMIN"
+}
+
+export enum TimRole {
+    CORETIM = "CORETIM",
+    LEAD = "LEAD",
+    AFM = "AFM",
+    COM_ADV = "COM_ADV",
+    MEMBER = "MEMBER"
 }
 
 
-export interface User {
-    id: string,
-    name: string,
-    email: string,
-    picture: string,
-    role: UserRole,
-    profile_url: string,
-
+export interface Userssss {
+    id: string;
+    nim: string;
+    name: string;
+    email: string;
+    role: UserRole;
+    avatar: string;
+    profil_bevy: string;
+    createdAt: Date;
+    role_tim: string;
+    password: string;
+    updatedAt: Date;
 }

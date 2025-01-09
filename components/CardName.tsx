@@ -3,7 +3,7 @@ import Link from "next/link";
 /**
  * @param {object} props - the props containing the details of the person
  * @param {string} props.name - the name of the person
- * @param {string} props.role - the role of the person
+ * @param {string} <props className="role_tim"></props> - the role of the person
  * @param {string} props.picture - the picture of the person
  * @param {string} props.profile_url - the profile url of the person
  * @returns {JSX.Element} - the article card component
@@ -11,14 +11,14 @@ import Link from "next/link";
 
 interface CardNameProps {
   name: string;
-  role: string;
+  roleTim: string;
   picture: string;
   profile_url: string;
 }
 
 export default function CardName({
   name,
-  role,
+  roleTim,
   picture,
   profile_url,
 }: CardNameProps) {
@@ -37,7 +37,7 @@ export default function CardName({
         </div>
         <h2 className="text-xl font-semibold">{name}</h2>
         {/* show the role */}
-        <p>{role}</p>
+        <p>{roleTim}</p>
       </div>
     </Link>
   );
