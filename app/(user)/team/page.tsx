@@ -71,7 +71,7 @@ export default function Team() {
                 name={user.name}
                 roleTim={user.role_tim}
                 picture={user.avatar}
-                profile_url={user.profil_bevy} // Pastikan data ini ada di API
+                profile_url={user.profil_bevy} 
               />
             ))
           )}
