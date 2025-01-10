@@ -1,40 +1,56 @@
-import fs from "fs/promises";
+"use client";
+import { Quiz } from "@prisma/client";
 import ArticleCard from "@/components/ArticleCard";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";  // Import toast
+import { useSessionContext } from "@/app/context/sessionContext";
 
-// Define a more specific type for metadata
-interface Metadata {
-  title: string;
-  description?: string;
-  date: string; // Change to non-optional string
-  tags: string[]; // Ensure tags is always a string array, no longer optional
-}
+export default function QuizPage() {
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { isLoading, session } = useSessionContext() 
+  const user = session?.user;
 
-interface Quiz {
-  slug: string;
-  metadata: Metadata; // Use the specific type for metadata
-}
+  const fetchQuizzes = async (query: string = "") => {
+    try {
+      setLoading(true);
 
-export default async function QuizPage() {
-  // Read quizzes directory asynchronously
-  const files = await fs.readdir("quizzes");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/quizzes?search=${query}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  // Read each file and parse the metadata with type safety
-  const quizzes: Quiz[] = await Promise.all(
-    files.map(async (fileName) => {
-      const slug = fileName.replace(".json", "");
-      const fileContent = await fs.readFile(`quizzes/${fileName}`, "utf-8");
-      const { metadata } = JSON.parse(fileContent);
+      if (!response.ok) {
+        throw new Error("Failed to fetch quizzes");
+      }
 
-      // Ensure tags is always an array (empty array if not provided)
-      const tags = metadata.tags ?? []; // Use empty array if undefined
+      const { success, data } = await response.json();
+      if (success) {
+        setQuizzes(data);
+      } else {
+        throw new Error("Invalid response");
+      }
+    } catch (err: any) {
+      console.log(err);
+      toast.error("Failed to load quizzes.");  // Show error toast
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      // Provide a default value for date if it's undefined
-      const date = metadata.date ?? "Tanggal tidak tersedia"; // Default value for date
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
 
-      // Return the quiz object with tags and date ensured
-      return { slug, metadata: { ...metadata, tags, date } };
-    })
-  );
+  const handleSearch = () => {
+    fetchQuizzes(searchQuery);
+  };
 
   return (
     <div className="w-full min-h-screen bg-white">
@@ -42,21 +58,61 @@ export default async function QuizPage() {
         <h1 className="text-center text-3xl lg:text-6xl font-bold text-black">
           Quiz & Latihan
         </h1>
-        <div className="grid lg:grid-cols-3 gap-3 mt-8 px-5">
-          {quizzes.map(({ slug, metadata }) => (
-            <ArticleCard
-              slug={`/quiz/${slug}`}
-              frontmatter={metadata}
-              key={slug}
-            />
-          ))}
+        <div className="flex gap-4 w-full max-w-3xl">
+          <input
+            type="text"
+            placeholder="Cari quiz..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
+          />
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Cari
+          </button>
+
+          <button
+            onClick={() => window.location.href = "quiz/history"}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            History
+            </button>
         </div>
+
+        {/* Loader */}
+        {loading && (
+          <div className="flex justify-center items-center mt-8">
+            <div className="w-8 h-8 border-4 border-t-transparent border-blue-500 border-solid rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {/* Quiz List or No Data Message */}
+        {!loading && (
+          <div className="grid lg:grid-cols-3 gap-3 mt-8 px-5 w-full">
+            {quizzes.length > 0 ? (
+              quizzes.map(({ id, title, content, quizType, image, createdAt }: Quiz) => (
+                <ArticleCard
+                  id={`/quiz/${id}`}
+                  frontmatter={{
+                    title,
+                    description: content,
+                    quizType: quizType,
+                    image: image ?? "https://via.placeholder.com/150",
+                    date: new Date(createdAt).toISOString(),
+                  }}
+                  key={id}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-500 col-span-full">
+                Tidak ada quiz yang ditemukan.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-export const metadata = {
-  title: "Daftar Quiz | GDSC Universitas Negeri Malang",
-  description: "Daftar quiz yang disediakan oleh GDSC UM",
-};
