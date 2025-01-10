@@ -17,6 +17,7 @@ export const GET = async (req: NextRequest) => {
 );
 			quizzes = await prisma.quiz.findMany({
 				where: {
+					isPublished: true,
 					OR: [
 						{
 							title: {
@@ -55,12 +56,14 @@ export const GET = async (req: NextRequest) => {
 			});
 		} else {
 			quizzes = await prisma.quiz.findMany({
+				where: {
+					isPublished: true,
+				},
 				orderBy: {
 					createdAt: "asc",
 				},
 			});
 		}
-
 		return NextResponse.json({ success: true, data: quizzes });
 	} catch (error) {
 		console.log(error);

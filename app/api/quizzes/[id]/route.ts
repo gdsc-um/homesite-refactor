@@ -32,22 +32,24 @@ export const GET = async (req: NextRequest, context: Context) => {
 export const PUT = async (req: NextRequest, context: Context) => {
     try {
         const { id } = await context.params;
-        const { title, content, image, quizType } = await req.json();
+        const { title, content, image, quizType, isPublished } =
+			await req.json();
         const validQuizTypes = ["WEB", "MOBILE", "ML", "UIUX", "OTHER"];
         if (!validQuizTypes.includes(quizType)) {
             return NextResponse.json({ success: false, message: "Invalid quiz type" }, { status: 400 });
         }
         await prisma.quiz.update({
-            where: {
-                id
-            },
-            data: {
-                title,
-                content,
-                image,
-                quizType
-            }
-        });
+			where: {
+				id,
+			},
+			data: {
+				title,
+				content,
+				image,
+				quizType,
+				isPublished,
+			},
+		});
         return NextResponse.json({ success: true, message: "Quiz updated successfully" });
     } catch (error) {
         console.log(error);
