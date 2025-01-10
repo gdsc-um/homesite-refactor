@@ -78,7 +78,7 @@ export default function Page({ params }: PageProps) {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 prose">
         <p
           className="text-justify text-slate-700 leading-relaxed"
           dangerouslySetInnerHTML={{
