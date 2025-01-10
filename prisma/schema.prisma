@@ -10,6 +10,13 @@ enum Role {
   ADMIN
   SUPERADMIN
 }
+enum RoleTim {
+  LEAD
+  COM_ADV
+  AFM
+  CORETIM
+  MEMBER
+}
 
 generator client {
   provider = "prisma-client-js"
@@ -36,6 +43,8 @@ model User {
   role      Role     @default(MEMBER)
   email     String   @unique
   password  String
+  profil_bevy String?
+  role_tim  RoleTim  @default(MEMBER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   quizzes   Quiz[]

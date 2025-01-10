@@ -22,29 +22,46 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { User } from '../lib/definition';
+import { Userssss } from '../lib/definition';
+import toast from 'react-hot-toast';
 
 interface ActionButtonProps {
-    data: User,
+    data: Userssss,
     type: "USER";
 }
 
 const ActionButton: FC<ActionButtonProps> = ({ data }) => {
     const router = useRouter();
+    const [isDeleteConfirmed, setIsDeleteConfirmed] = React.useState(false);
 
     const handleSeeDetailClick = () => {
-        if (data.profile_url) {
-            router.push(data.profile_url); 
+        console.log(data.profil_bevy);
+        if (data.profil_bevy) {
+            router.push(data.profil_bevy); 
         }
     }
 
     const handleEditClick = () => {
-        const url = `manage-user/${data.id}/edit`; // Changed to const
+        const url = `manage-user/${data.email}/edit`; // Changed to const
         router.push(url);
     }
 
-    const handleDeleteClick = () => {
-        // Pass
+    const handleDeleteClick = async () => {
+        const res = await fetch(`/api/user/${data.email}`, {
+            method: 'DELETE',
+        });
+
+        if (res.ok) {
+            toast.success('User deleted successfully');
+            router.refresh();
+            router.push('/admin/dashboard');
+        }else{
+            toast.error('Failed to delete user');
+        }
+    }
+
+    const handleDilogOpen = () => {
+        setIsDeleteConfirmed(true);
     }
 
     return (
@@ -75,7 +92,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <DialogTrigger asChild>
-                                <button onClick={handleDeleteClick}>
+                                <button onClick={handleDilogOpen}>
                                     <Trash color='#ef4444' size={15} />
                                 </button>
                             </DialogTrigger>
@@ -99,7 +116,9 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
                         <DialogClose asChild>
                             <Button variant={'ghost'}>Cancel</Button>
                         </DialogClose>
-                        <Button variant={'destructive'}>Yes, delete it.</Button>
+                        <Button variant={'destructive'} onClick={handleDeleteClick}>
+                        Yes, delete it.
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
                 </Dialog>
