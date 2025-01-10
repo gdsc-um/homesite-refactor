@@ -3,8 +3,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { Article } from "../../lib/definition";
 import ArticleForm from '../../components/articleForm';
+import { Article } from '@prisma/client';
 
 interface EditArticlePageProps {
   params: Promise<{ slug: string }>; // Mengubah menjadi Promise yang harus dibongkar
