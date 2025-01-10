@@ -52,7 +52,7 @@ const ActionButton: FC<ActionButtonProps> = ({ data }) => {
             // Tindakan setelah artikel berhasil dihapus
             toast.success('Article deleted successfully');
             router.refresh();
-            router.push('/admin/dashboard');
+            router.push('/admin/dashboard/article');
             // auto refresh
         } else {
             toast.error('Failed to delete article');
