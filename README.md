@@ -39,6 +39,25 @@ pnpm install
 
 ### 3. Set Up the Backend
 
+#### Create Database
+
+1. Access your MySQL instance using a client (e.g., MySQL Workbench, phpMyAdmin, or the command line).
+
+2. Run the following SQL command to create a database:
+```sql
+CREATE DATABASE homesite_refactor;  
+```
+Replace homesite_refactor with your preferred database name.
+
+3. Create a database user and grant privileges (optional):
+```sql
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';  
+GRANT ALL PRIVILEGES ON homesite_refactor.* TO 'username'@'localhost';  
+FLUSH PRIVILEGES;  
+```
+Replace username and password with your desired credentials.
+
+
 #### Configure Environment Variables
 
 Create a `.env` file in the root directory and add the following configuration:
