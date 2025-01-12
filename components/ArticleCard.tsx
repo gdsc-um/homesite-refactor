@@ -1,79 +1,65 @@
-// components/ArticleCard.tsx
 import IMAGEPLACEHOLDER from "@/assets/placeholder.jpg";
+import { getBadgeColor, processGoogleDriveLink } from "@/lib/utils";
+import { QuizType } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
 // Define the props interface for ArticleCard
-interface ArticleCardProps {
-  slug: string;
+interface QuizCardProps {
+  id: string;
   frontmatter: {
     title: string;
+    description?: string;
+    quizType: QuizType;
+    image?: string;
     date: string;
-    excerpt?: string;
-    tags: string[];
-    thumbnail?: string;
   };
 }
 
-export default function ArticleCard({ slug, frontmatter }: ArticleCardProps) {
-  const date = new Date(frontmatter.date).toLocaleDateString("id-ID", {
+export default function QuizCard({ id, frontmatter }: QuizCardProps) {
+  const formattedDate = new Date(frontmatter.date).toLocaleDateString("id-ID", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  const imageUrl = processGoogleDriveLink(frontmatter.image || "");
 
   return (
     <Link
-      href={`${slug}`}
-      className="rounded-xl flex flex-col items-center justify-center gap-3 bg-white shadow-xl hover:outline hover:outline-coreBlue-500 hover:outline-offset-2"
+      href={id}
+      className="rounded-xl flex flex-col items-start bg-white shadow-xl hover:outline hover:outline-coreBlue-500 hover:outline-offset-2 w-full"
     >
-      <div className="relative h-full rounded-lg flex flex-col gap-3 overflow-hidden p-5 text-white ">
-        <div className="w-full h-60 bg-[#D9D9D9] rounded">
-          {frontmatter.thumbnail ? (
-            <Image
-              src={frontmatter.thumbnail}
-              alt="thumbnail"
-              className="w-full h-60 object-cover rounded-lg"
-              width={1280}
-              height={720}
-            />
-          ) : (
-            <Image
-              src={IMAGEPLACEHOLDER}
-              alt="placeholder"
-              className="w-full h-60 object-cover rounded-lg"
-              width={1280}
-              height={720}
-            />
-          )}
-        </div>
-        <h3 className="text-2xl font-semibold text-black text-center lg:text-left">
-          {frontmatter.title}
-        </h3>
+      {/* Image at the top */}
+      <div className="w-full h-60 overflow-hidden rounded-t-lg bg-[#D9D9D9]">
+        <Image
+          src={imageUrl || IMAGEPLACEHOLDER}
+          alt={frontmatter.title}
+          className="w-full h-full object-cover"
+          width={1280}
+          height={720}
+        />
+      </div>
+
+      {/* Text content below the image */}
+      <div className="p-5 w-full flex flex-col gap-3 text-black">
+        <h3 className="text-2xl font-semibold">{frontmatter.title}</h3>
         <time
           dateTime={frontmatter.date}
-          id="articledate"
-          className="text-sm text-black text-center lg:text-left"
+          className="text-sm text-gray-500"
         >
-          {date}
+          {formattedDate}
         </time>
-        {frontmatter.excerpt && (
-          <p className="text-sm text-black text-center lg:text-left">
-            {frontmatter.excerpt.slice(0, 100)}...
+        {frontmatter.description && (
+          <p className="text-sm text-gray-700">
+            {frontmatter.description.slice(0, 100)}...
           </p>
         )}
-        <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-          {frontmatter.tags.slice(0, 3).map((tag, index) => (
-            <span
-              key={index}
-              className="text-sm bg-blue-900 rounded-full px-3 py-1"
-              id="articletag"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <span
+          className={`text-xs font-medium rounded px-2 py-1 w-max ${getBadgeColor(frontmatter.quizType)}`}
+        >
+          {frontmatter.quizType}
+        </span>
       </div>
     </Link>
   );

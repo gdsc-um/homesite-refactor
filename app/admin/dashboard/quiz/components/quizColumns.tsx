@@ -44,6 +44,16 @@ export const columns: ColumnDef<QuizWithAuthor>[] = [
         }
     },
     {
+        accessorKey: "isPublished",
+        header: "Published",
+        cell: ({ row }) => {
+            const quiz = row.original;
+            return <div className="py-4">
+                {quiz.isPublished ? "Yes" : "No"}
+            </div>
+        }
+    },
+    {
         id: "total",
         header: () => {
             return <p className="text-center">Total Question</p>

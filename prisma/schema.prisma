@@ -71,6 +71,7 @@ model Quiz {
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   quizType  QuizType
+  isPublished Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   questions Questions[]

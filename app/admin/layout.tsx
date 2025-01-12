@@ -14,7 +14,7 @@ import { LogOut, User } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { signOut } from "next-auth/react"
-import {useSessionContext } from "../context/sessionContext"
+import { useSessionContext } from "../context/sessionContext"
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
