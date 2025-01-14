@@ -3,16 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import ActionButton from "./actionButton";
 import { Article } from "../lib/definition";
-import Image from "next/image"; // Import Image from next/image
 
 
 export const columns: ColumnDef<Article>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    id: "count",
+    header: "#",
     cell: ({ row }) => {
-      const article = row.original;
-      return <div className="py-4">{row.index + 1}</div>;
+      return <div className="py-4">{row.index + 1}.</div>;
     },
   },
   {
@@ -41,45 +39,6 @@ export const columns: ColumnDef<Article>[] = [
       return <div className="py-4">{formattedDate}</div>;
     },
   },
-  {
-    accessorKey: "content",
-    header: "Content",
-    cell: ({ row }) => {
-      const article = row.original;
-      const truncatedContent =
-        article.content.length > 100
-          ? `${article.content.slice(0, 100)}...`
-          : article.content;
-
-      return (
-        <div className="py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[300px]">
-          {truncatedContent}
-        </div>
-      );
-    },
-  },
-  // {
-  //   accessorKey: "banner",
-  //   header: "Banner",
-  //   cell: ({ row }) => {
-  //     const article = row.original;
-
-  //     // Handle empty or invalid `banner` values
-  //     const imageSrc = article.banner ? article.banner : "banner.png";
-
-  //     return (
-  //       <div className="py-4">
-  //         <img
-  //           src="/banner.png" // Use a placeholder image
-  //           alt="article banner"
-  //           width={60} // Set fixed width
-  //           height={60} // Set fixed height
-  //           className="rounded-full" // Retain rounded shape
-  //         />
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     id: "action",
     header: () => {

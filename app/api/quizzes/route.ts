@@ -73,7 +73,8 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
     try {
-        const { title, content, image, quizType } = await req.json();
+        const { title, content, image, quizType, isPublished } =
+			await req.json();
         const validQuizTypes = ["WEB", "MOBILE", "ML", "UIUX", "OTHER"];
         if (!validQuizTypes.includes(quizType)) {
             return NextResponse.json({ success: false, message: "Invalid quiz type" }, { status: 400 });
@@ -88,6 +89,7 @@ export const POST = async (req: NextRequest) => {
                 content,
                 image,
                 quizType,
+                isPublished,
                 authorId: user_id,
             }
         });
