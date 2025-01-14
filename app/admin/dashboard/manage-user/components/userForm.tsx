@@ -32,7 +32,7 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    if (!updatePassword) {
+    if (type === "EDIT" && !updatePassword) {
       delete data.password; // Hapus password jika user memilih tidak mengupdate password
     }
     const method = type === "EDIT" ? "PUT" : "POST";
@@ -56,6 +56,7 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
       toast.error("An error occurred while submitting the form");
     }
   };
+
   return (
     <>
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -101,32 +102,33 @@ const UserForm: FC<UserFormProps> = ({ user, type }) => {
             readOnly={type === "EDIT"}
           />
         </div>
-        {type === "EDIT" && (
-        <div className="space-y-1 md:space-y-2">
-          <Label>
-            <input
-              type="checkbox"
-              checked={updatePassword}
-              onChange={(e) => setUpdatePassword(e.target.checked)}
+        {/* Form password hanya muncul saat ADD atau saat EDIT jika memilih update password */}
+        {(type === "ADD" || updatePassword) && (
+          <div className="space-y-1 md:space-y-2">
+            <Label className="text-lg " htmlFor="password">
+              Password
+            </Label>
+            <Input
+              type="text"
+              defaultValue=""
+              name="password"
+              id="password"
+              required={type === "ADD"}
             />
-            <p>Update Password</p>
-          </Label>
-        </div>
-      )}
-      {updatePassword && (
-        <div className="space-y-1 md:space-y-2">
-          <Label className="text-lg " htmlFor="password">
-            Password
-          </Label>
-          <Input
-            type="text"
-            defaultValue=""
-            name="password"
-            id="password"
-            required
-          />
-        </div>
-      )}
+          </div>
+        )}
+        {type === "EDIT" && (
+          <div className="space-y-1 md:space-y-2">
+            <Label>
+              <input
+                type="checkbox"
+                checked={updatePassword}
+                onChange={(e) => setUpdatePassword(e.target.checked)}
+              />
+              <p>Update Password</p>
+            </Label>
+          </div>
+        )}
         <div className="space-y-1 md:space-y-2">
           <Label className="text-lg " htmlFor="profil_bevy">
             Profile Bevy
