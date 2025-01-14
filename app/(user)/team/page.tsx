@@ -70,8 +70,8 @@ export default function Team() {
                 key={user.nim}
                 name={user.name}
                 roleTim={user.role_tim}
-                picture={user.avatar}
-                profile_url={user.profil_bevy} 
+                picture={user.avatar || "/profile_dummy.jpg"}
+                profile_url={user.profil_bevy || "#"} 
               />
             ))
           )}
