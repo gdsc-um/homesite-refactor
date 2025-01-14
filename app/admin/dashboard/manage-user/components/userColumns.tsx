@@ -20,7 +20,7 @@ export const columns: ColumnDef<Userssss>[] = [
             const user = row.original;
             return <div className="py-4">
                 <Image 
-                    src={user.avatar} 
+                    src={user.avatar || "/profile_dummy.jpg"} // Set image source
                     alt="user" 
                     className="w-10 h-10 rounded-full" 
                     width={40} // Set width
