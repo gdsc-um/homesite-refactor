@@ -1,75 +1,217 @@
 "use client";
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { FC } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Question as QuestionInterface } from '../../lib/definition';
+import { Questions } from '@prisma/client';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
 
 
 interface QuestionFormProps {
-    question?: QuestionInterface,
+    question?: Questions,
     type: "ADD" | "EDIT" | "SEE"
 }
 
+interface QuestionAnswer {
+    answer: string | undefined,
+    isCorrect: boolean | undefined
+}
+
+const schema = z.object({
+    question: z.string().min(3, { message: "Question must be at least 3 characters" }).nonempty({ message: "Question cannot be empty" }),
+    option1: z.string().nonempty({ message: "Option 1 cannot be empty" }),
+    option2: z.string().nonempty({ message: "Option 2 cannot be empty" }),
+    option3: z.string().nonempty({ message: "Option 3 cannot be empty" }),
+    option4: z.string().nonempty({ message: "Option 4 cannot be empty" }),
+    correctAnswerIndex: z.string().nonempty({ message: "Correct answer is required" })
+})
+
 const QuestionForm: FC<QuestionFormProps> = ({ question, type }) => {
     const router = useRouter();
-    const correctAnswerIndex = question?.options.findIndex(option => option.isCorrect);
+    const { id: quizId } = useParams();
+    const formatedQuestionAnswer: { options: QuestionAnswer[] } = type !== "ADD" && question?.answer ? JSON.parse(question?.answer) : {};
+    const correctAnswerIndex = formatedQuestionAnswer?.options?.findIndex(option => option.isCorrect)
+
+    const form = useForm<z.infer<typeof schema>>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            question: type === "ADD" ? '' : question?.question,
+            option1: type === "ADD" ? '' : formatedQuestionAnswer?.options[0].answer,
+            option2: type === "ADD" ? '' : formatedQuestionAnswer?.options[1].answer,
+            option3: type === "ADD" ? '' : formatedQuestionAnswer?.options[2].answer,
+            option4: type === "ADD" ? '' : formatedQuestionAnswer?.options[3].answer,
+            correctAnswerIndex: type === "ADD" ? '' : `${correctAnswerIndex}`
+        }
+    })
+
+    async function onSubmit(values: z.infer<typeof schema>) {
+        let url = `/api/quizzes/${quizId}/questions`;
+        if (type === "EDIT") url += `/${question?.id}`;
+        const response = await fetch(url, {
+            method: type === "ADD" ? "POST" : "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values)
+        });
+        const data = await response.json();
+        if (response.ok) {
+            router.back();
+        }
+    }
+
     return (
-        <form className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-2'>
-                <Label className='text-lg ' htmlFor='question'>Question:</Label>
-                <Input disabled={type === "SEE"} defaultValue={type !== "ADD" ? question?.question : ""} name='question' id='question' required />
-            </div>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-2'>
+                    {/* <Label className='text-lg ' htmlFor='question'>Question:</Label> */}
+                    <FormField
+                        control={form.control}
+                        name='question'
+                        render={({ field }) => {
+                            return <FormItem>
+                                <FormLabel className='text-lg'>Question</FormLabel>
+                                <FormControl>
+                                    <Input disabled={type === "SEE"} {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        }} />
+                </div>
 
-            <div className='grid sm:grid-cols-2 gap-4'>
-                <div className='flex items-center gap-2'>
-                    <Label className='text-lg ' htmlFor='option-1'>A:</Label>
-                    <Input disabled={type === "SEE"} defaultValue={type !== "ADD" ? question?.options[0].answer : ""} name='option1' id='option-1' required />
+                <div className='grid sm:grid-cols-2 gap-4'>
+                    <div className='flex items-center gap-2'>
+                        <FormField
+                            control={form.control}
+                            name='option1'
+                            render={({ field }) => {
+                                return <FormItem className='w-full'>
+                                    <FormLabel className='text-lg'>A:</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={type === "SEE"} {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            }} />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FormField
+                            control={form.control}
+                            name='option2'
+                            render={({ field }) => {
+                                return <FormItem className='w-full'>
+                                    <FormLabel className='text-lg'>B:</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={type === "SEE"} {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            }} />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FormField
+                            control={form.control}
+                            name='option3'
+                            render={({ field }) => {
+                                return <FormItem className='w-full'>
+                                    <FormLabel className='text-lg'>C:</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={type === "SEE"} {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            }} />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FormField
+                            control={form.control}
+                            name='option4'
+                            render={({ field }) => {
+                                return <FormItem className='w-full'>
+                                    <FormLabel className='text-lg'>D:</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={type === "SEE"} {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            }} />
+                    </div>
                 </div>
-                <div className='flex items-center gap-2'>
-                    <Label className='text-lg ' htmlFor='option-2'>B:</Label>
-                    <Input disabled={type === "SEE"} defaultValue={type !== "ADD" ? question?.options[1].answer : ""} name='option2' id='option-2' required />
-                </div>
-                <div className='flex items-center gap-2'>
-                    <Label className='text-lg ' htmlFor='option-3'>C:</Label>
-                    <Input disabled={type === "SEE"} defaultValue={type !== "ADD" ? question?.options[2].answer : ""} name='option3' id='option-3' required />
-                </div>
-                <div className='flex items-center gap-2'>
-                    <Label className='text-lg ' htmlFor='option-4'>D:</Label>
-                    <Input disabled={type === "SEE"} defaultValue={type !== "ADD" ? question?.options[3].answer : ""} name='option4' id='option-4' required />
-                </div>
-            </div>
 
-            <div className='space-y-2 mt-4'>
-                <h3>Correct Answer:</h3>
-                <RadioGroup disabled={type === "SEE"} defaultValue={`${correctAnswerIndex}`} name='correctAnswerIndex' className='flex gap-4' required>
-                    <div className="flex items-center space-x-1">
-                        <RadioGroupItem value="0" id="answer-1" />
-                        <Label htmlFor="answer-1">A</Label>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                        <RadioGroupItem value="1" id="answer-2" />
-                        <Label htmlFor="answer-2">B</Label>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                        <RadioGroupItem value="2" id="answer-3" />
-                        <Label htmlFor="answer-3">C</Label>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                        <RadioGroupItem value="3" id="answer-4" />
-                        <Label htmlFor="answer-4">D</Label>
-                    </div>
-                </RadioGroup>
-            </div>
+                <div className='space-y-2 mt-4'>
+                    <FormField
+                        control={form.control}
+                        name="correctAnswerIndex"
+                        render={({ field }) => (
+                            <FormItem className="space-y-3">
+                                <FormLabel className='text-lg'>Correct Answer Index: </FormLabel>
+                                <FormControl>
+                                    <RadioGroup
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        className="flex gap-4"
+                                        disabled={type === "SEE"}
+                                        {...field}
+                                    >
+                                        <FormItem className="flex items-center gap-1 space-y-0">
+                                            <FormControl>
+                                                <RadioGroupItem value="0" />
+                                            </FormControl>
+                                            <FormLabel className="font-normal hover:cursor-pointer">
+                                                A
+                                            </FormLabel>
+                                        </FormItem>
+                                        <FormItem className="flex items-center gap-1 space-y-0">
+                                            <FormControl>
+                                                <RadioGroupItem value="1" />
+                                            </FormControl>
+                                            <FormLabel className="font-normal hover:cursor-pointer">
+                                                B
+                                            </FormLabel>
+                                        </FormItem>
+                                        <FormItem className="flex items-center gap-1 space-y-0">
+                                            <FormControl>
+                                                <RadioGroupItem value="2" />
+                                            </FormControl>
+                                            <FormLabel className="font-normal hover:cursor-pointer">
+                                                C
+                                            </FormLabel>
+                                        </FormItem>
+                                        <FormItem className="flex items-center gap-1 space-y-0">
+                                            <FormControl>
+                                                <RadioGroupItem value="3" />
+                                            </FormControl>
+                                            <FormLabel className="font-normal hover:cursor-pointer">
+                                                D
+                                            </FormLabel>
+                                        </FormItem>
+                                    </RadioGroup>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
 
-            <div className='flex justify-end gap-4 mt-2'>
-                <Button type='button' onClick={() => router.back()} variant='ghost'>{type === "ADD" ? 'Cancel' : 'Back'}</Button>
-                {type !== "SEE" && <Button>Save</Button>}
-            </div>
-        </form>
+                <div className='flex justify-end gap-4 mt-2'>
+                    <Button type='button' onClick={() => router.back()} variant='ghost'>{type === "ADD" ? 'Cancel' : 'Back'}</Button>
+                    {type !== "SEE" && <Button>Save</Button>}
+                </div>
+            </form>
+        </Form>
+
     )
 }
 

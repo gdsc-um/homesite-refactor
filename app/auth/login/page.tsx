@@ -1,8 +1,5 @@
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-
+import From from './form'
 export default function Page() {
   return (
     <div className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-2">
@@ -22,24 +19,14 @@ export default function Page() {
             <h1 className="text-3xl font-bold">Welcome back!</h1>
             <p className="text-gray-500 dark:text-gray-400">Enter your email and password to sign in.</p>
           </div>
-          <form className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="m@example.com" required />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="text-sm font-medium underline" prefetch={false}>
-                  Forgot password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full">
-              Sign in
-            </Button>
-          </form>
+          <From/>
+          <div className="mt-5 2xl:mt-8 text-center ">
+            Don&apos;t have an account?{" "}
+            <Link href="/auth/register" className="text-primary">
+              {" "}
+              Sign Up{" "}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

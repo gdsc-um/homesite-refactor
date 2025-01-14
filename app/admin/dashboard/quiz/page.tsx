@@ -2,68 +2,50 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { columns } from "./components/quizColumns";
-import { QUIZZES } from "./data/quizzes";
-
+import { Quiz, User } from "@prisma/client";
+import { QuizWithAuthor } from "./lib/definition";
 
 
 
 const QuizPage: FC = () => {
+    const [searchInput, setSearchInput] = useState<string>("");
+    const [quizzes, setQuizzes] = useState<QuizWithAuthor[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
 
-    const handleSeeDetailQuiz = (quizId: string) => {
-        console.log(`Seeing detail quiz with id ${quizId}`);
-        router.push(`quiz/${quizId}`)
-    }
+    useEffect(() => {
+        const fetchQuizzes = async () => {
+            let url = `/api/quizzes`;
+            if (searchInput) url += `?search=${searchInput}`
+            const response = await fetch(url);
+            const data = await response.json();
+            setQuizzes(data.data);
+            setIsLoading(false);
+        }
+        // Implement debounce for reducing the frequency of API calls while typing in the search input
+        const timer = setTimeout(fetchQuizzes, 500);
 
+        return () => clearTimeout(timer);
+    }, [searchInput]);
 
     return (
         <div className="px-6 max-w-[80rem] mx-auto">
-            <h3 className="font-semibold text-3xl ">Quiz</h3>
-            <p>
-                Total Quiz : {QUIZZES.length}
-            </p>
-                <div className="flex justify-between items-center mb-4 mt-4">
-                    <header className="flex flex-col gap-4 py-4">
-                        <div className="flex justify-end">
-                            <Button onClick={() => router.push(`quiz/create`)} className="w-[5rem] sm:w-[10rem]">Add</Button>
-                        </div>
-                    </header>
-                <div>
-                    tombol search
+            <header className="flex flex-col gap-4 py-4">
+                <h3 className="font-semibold text-3xl ">Quiz</h3>
+                <div className="grid grid-cols-2">
+                    <Button onClick={() => router.push(`quiz/create`)} className="w-[5rem] sm:w-[10rem]">Add</Button>
+                    <div className="flex justify-end">
+                        <Input value={searchInput} onChange={({ target }) => setSearchInput(target.value)} className="max-w-[15rem]" type="text" name="search" placeholder="Search..." />
+                    </div>
                 </div>
-            </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="text-center">#</TableHead>
-                        <TableHead className="text-center">Question</TableHead>
-                        <TableHead className="text-center">Author</TableHead>
-                        <TableHead className="text-center">Actions</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {QUIZZES.map((quiz, index) => (
-                        <TableRow key={quiz.id}>
-                            <TableCell className="py-6 font-medium text-center">{++index}.</TableCell>
-                            <TableCell className="py-6 max-w-[10rem]">{quiz.question}</TableCell>
-                            <TableCell className="py-6 text-center">{quiz.author}</TableCell>
-                            <TableCell className="py-6 ">
-                                <div className="flex justify-center gap-6">
-                                    <button onClick={() => handleSeeDetailQuiz(quiz.id)} className="">
-                                        <Eye size={15} />
-                                    </button>
-                                    <DeleteQuizBtn id={quiz.id} />
+            </header>
 
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            {!isLoading && <DataTable columns={columns} data={quizzes} />}
+            {isLoading && <h4 className="text-center animate-pulse text-lg mt-10">Loading...</h4>}
         </div>
     )
 }

@@ -1,25 +1,25 @@
-import React from 'react';
+import { Trash } from 'lucide-react';
+import React, { FC } from 'react';
 
-interface DeleteArticleProps {
-  articleId: string;
-  onDelete: (id: string) => void;
+interface DeleteArticleBtnProps {
+    id: string;  // Ensure the id is used
 }
 
-const DeleteArticle: React.FC<DeleteArticleProps> = ({
-  articleId,
-  onDelete,
-}) => {
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this article?')) {
-      onDelete(articleId);
-    }
-  };
+const DeleteArticleBtn: FC<DeleteArticleBtnProps> = ({ id }) => {
+    const handleDelete = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Call the delete function here using the id
+        console.log(`Delete article with ID: ${id}`);
+        // You can call an API or perform other actions based on the id
+    };
 
-  return (
-    <button onClick={handleDelete} className="text-red-500">
-      Delete
-    </button>
-  );
+    return (
+        <form onSubmit={handleDelete}>
+            <button type="submit" className="">
+                <Trash size={15} />
+            </button>
+        </form>
+    );
 };
 
-export default DeleteArticle;
+export default DeleteArticleBtn;

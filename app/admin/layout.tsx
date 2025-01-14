@@ -1,5 +1,6 @@
+"use client"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, UserRole } from "@/components/app-sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,13 +13,21 @@ import {
 import { LogOut, User } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
+import { signOut } from "next-auth/react"
+import { useSessionContext } from "../context/sessionContext"
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  //get current user role
+  const { isLoading, session } = useSessionContext() 
+  if (isLoading) {
+    return <div>Loading...</div>; // TODO: Improve loading UI
+  }
+  const user = session?.user
+  const userRole: UserRole = user?.role
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar userRole={userRole} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center justify-between">
           <div className="flex items-center gap-2 px-4">
@@ -30,16 +39,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="h-8 w-8 cursor-pointer">
-                  <AvatarImage src={`https://ui-avatars.com/api/?name=John+Doe&background=random`} />
+                  <AvatarImage src={`https://ui-avatars.com/api/?name=${user?.name}`} />
                   <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">John Doe</p>
+                    <p className="text-sm font-medium leading-none">{user?.name}</p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      john@example.com
+                      {user?.email}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -49,7 +58,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => signOut({ redirect: false }).then(() => {
+                    window.location.href = "/auth/login";
+                  })}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                   </DropdownMenuItem>
