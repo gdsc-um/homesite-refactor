@@ -61,7 +61,7 @@ export default async function Page({ params }: PageProps) {
       {/* Back Button */}
       <Link
         className="hover:underline flex items-center mt-6"
-        href="/admin/dashboard/article"
+        href="/blog"
       >
         <ChevronLeft size={20} />
         Back
