@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { processGoogleDriveLink } from '@/lib/utils';
 
 const prisma = new PrismaClient();
 
@@ -51,13 +52,15 @@ export default function Page({ params }: PageProps) {
     return <div>Article not found</div>;
   }
 
+  const imageUrl = processGoogleDriveLink(existingArticle.banner || "");
+
   return (
     <div className="px-6 py-4 max-w-[80rem] mx-auto flex flex-col gap-8">
       {/* Header Section */}
       <div className="flex flex-col items-center text-center gap-4">
         
       <Image
-            src="/banner.png"
+            src={imageUrl}
             // src={`https://drive.google.com/uc?id=1T2A6rV-IejAqrVZpAMpeL9PjP_RZG-1L`}
             alt={"banner"}
             width={600}
